@@ -1,0 +1,26 @@
+<f:if condition="{data.header_layout}">
+	<f:then>
+		<h{data.header_layout}>
+			<f:if condition="{data.header_link}">
+				<f:then>
+					<f:link.page pageUid="{data.header_link}">{data.header}</f:link.page>
+				</f:then>
+				<f:else>
+					{data.header}
+				</f:else>
+			</f:if>
+		</h{data.header_layout}>
+	</f:then>
+	<f:else>
+		<h1>
+			<f:if condition="{data.header_link}">
+				<f:then>
+					<f:link.page pageUid="{data.header_link}">{data.header}</f:link.page>
+				</f:then>
+				<f:else>
+					{data.header}
+				</f:else>
+			</f:if>
+		</h2>
+	</f:else>
+</f:if>

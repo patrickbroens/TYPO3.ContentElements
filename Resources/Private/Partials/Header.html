@@ -1,0 +1,22 @@
+<f:if condition="{data.header}">
+	<f:if condition="{data.header_layout}">
+		<f:then>
+			<f:if condition="{data.header_layout} == 100">
+				<f:else>
+					<f:render partial="Header/Main" arguments="{_all}" />
+					<f:if condition="{data.subheader}">
+						<h1>
+							{data.subheader}
+						</h1>
+					</f:if>
+				</f:else>
+			</f:if>
+		</f:then>
+		<f:else>
+			<h1><f:render partial="Header/Main" arguments="{_all}" /></h1>
+			<f:if condition="{data.subheader}">
+				<h2>{data.subheader}</h2>
+			</f:if>
+		</f:else>
+	</f:if>
+</f:if>

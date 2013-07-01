@@ -1,0 +1,7 @@
+contentelements {
+	view {
+		templateRootPath = EXT:contentelements/Resources/Private/Templates/
+		partialRootPath = EXT:contentelements/Resources/Private/Partials/
+		layoutRootPath = EXT:contentelements/Resources/Private/Layouts/
+	}
+}
