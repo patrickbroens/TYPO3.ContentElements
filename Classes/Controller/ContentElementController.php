@@ -30,16 +30,22 @@ use PatrickBroens\Contentelements\Utilities\FlexForm;
 class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
 	/**
+	 * The content object
+	 *
 	 * @var \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
 	 */
 	protected $contentObject;
 
 	/**
+	 * The object data
+	 *
 	 * @var mixed
 	 */
 	protected $data;
 
 	/**
+	 * A file collection
+	 *
 	 * @var \PatrickBroens\Contentelements\Resource\Collection\FileCollection
 	 * @inject
 	 */
@@ -47,6 +53,8 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 
 
 	/**
+	 * Initialization of all actions
+	 *
 	 * @return void
 	 */
 	public function initializeAction() {
@@ -55,6 +63,8 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	}
 
 	/**
+	 * Default action
+	 *
 	 * @return void
 	 */
 	public function renderAction() {
@@ -62,6 +72,9 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 		switch($this->data['CType']) {
 			case 'bullets':
 				$this->forward('bullets');
+				break;
+			case 'menu':
+				$this->forward('menu');
 				break;
 			case 'table':
 				$this->forward('table');
@@ -83,6 +96,13 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 		);
 
 		$this->view->assign('data', $this->data);
+	}
+
+	/**
+	 * Action for CE "Menu / Sitemap"
+	 */
+	public function menuAction() {
+		
 	}
 
 	/**

@@ -2,6 +2,7 @@
 <INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Setup/lib.parseTarget.ts">
 <INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Setup/lib.parseFunc.ts">
 <INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Setup/lib.parseFunc_RTE.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Setup/config.extbase.ts">
 
 plugin.tx_contentelements {
 	view {
@@ -67,6 +68,14 @@ tt_content {
 	list < lib.stdContent
 	list {
 		file = {$contentelements.view.templateRootPath}List.html
+	}
+	menu < lib.userContent
+	menu {
+		switchableControllerActions {
+			ContentElement {
+				1 = menu
+			}
+		}
 	}
 	multimedia < lib.stdContent
 	multimedia {
