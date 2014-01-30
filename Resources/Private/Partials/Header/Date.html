@@ -1,0 +1,9 @@
+{namespace ce=PatrickBroens\Contentelements\ViewHelpers}
+
+<f:if condition="{data.date}">
+	<p>
+		<time datetime="{f:format.date(date: '@{data.date}', format: '%Y-%m-%d')}">
+			<f:format.date format="%B %e, %Y">@{data.date}</f:format.date>
+		</time>
+	</p>
+</f:if>

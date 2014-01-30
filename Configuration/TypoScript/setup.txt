@@ -90,7 +90,7 @@ lib.parseFunc {
 			parseFunc.constants = 1
 		}
 	}
-	allowTags = {$styles.content.links.allowTags}
+	allowTags = {$styles.content.allowTags}
 	denyTags = *
 	sword = <span class="csc-sword">|</span>
 	constants = 1
@@ -196,12 +196,12 @@ lib.parseFunc_RTE {
 	}
 }
 
-lib.stdheader >
-lib.stdheader = FLUIDTEMPLATE
-lib.stdheader {
-	file = {$contentelements.view.templateRootPath}Header.html
-	partialRootPath = {$contentelements.view.partialRootPath}
-	layoutRootPath = {$contentelements.view.layoutRootPath}
+plugin.tx_contentelements {
+	view {
+		file = {$contentelements.view.templateRootPath}Default.html
+		partialRootPath = {$contentelements.view.partialRootPath}
+		layoutRootPath = {$contentelements.view.layoutRootPath}
+	}
 }
 
 lib.stdContent >
@@ -210,6 +210,25 @@ lib.stdContent {
 	file = {$contentelements.view.templateRootPath}Default.html
 	partialRootPath = {$contentelements.view.partialRootPath}
 	layoutRootPath = {$contentelements.view.layoutRootPath}
+
+	settings {
+		defaultHeaderType = {$content.defaultHeaderType}
+		shortcutTables = {$content.shortcut.tables}
+	}
+}
+
+lib.userContent >
+lib.userContent = USER
+lib.userContent {
+	userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+	vendorName = PatrickBroens
+	extensionName = Contentelements
+	pluginName = Contentelements
+	switchableControllerActions {
+		ContentElement {
+			1 = default
+		}
+	}
 }
 
 tt_content >
@@ -218,8 +237,48 @@ tt_content {
 	key {
 		field = CType
 	}
+	bullets < lib.userContent
+	bullets {
+		switchableControllerActions {
+			ContentElement {
+				1 = bullets
+			}
+		}
+	}
+	div < lib.stdContent
+	div {
+		file = {$contentelements.view.templateRootPath}Div.html
+	}
+	header < lib.stdContent
+	header {
+		file = {$contentelements.view.templateRootPath}Header.html
+	}
+	html < lib.stdContent
+	html {
+		file = {$contentelements.view.templateRootPath}Html.html
+	}
+	shortcut < lib.stdContent
+	shortcut {
+		file = {$contentelements.view.templateRootPath}Shortcut.html
+	}
+	table < lib.userContent
+	table {
+		switchableControllerActions {
+			ContentElement {
+				1 = table
+			}
+		}
+	}
 	text < lib.stdContent
 	text {
 		file = {$contentelements.view.templateRootPath}Text.html
+	}
+	uploads < lib.userContent
+	uploads {
+		switchableControllerActions {
+			ContentElement {
+				1 = uploads
+			}
+		}
 	}
 }

@@ -7,3 +7,12 @@ if (!defined('TYPO3_MODE')) {
 $GLOBALS['TYPO3_CONF_VARS']['FE']['contentRenderingTemplates'] = array(
 	'contentelements/Configuration/TypoScript/'
 );
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+	'PatrickBroens.' . $_EXTKEY,
+	'Contentelements',
+	array(
+		'ContentElement' => 'render'
+	),
+	array()
+);

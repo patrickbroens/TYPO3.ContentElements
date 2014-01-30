@@ -1,0 +1,7 @@
+{namespace ce=PatrickBroens\Contentelements\ViewHelpers}
+
+<f:if condition="{data.subheader}">
+	<ce:tag.hx type="{data.header_layout}" defaultType="{settings.defaultHeaderType}" subheader="1">
+		{data.subheader}
+	</ce:tag.hx>
+</f:if>

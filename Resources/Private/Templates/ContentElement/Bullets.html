@@ -1,0 +1,13 @@
+<f:layout name="HeaderContentFooter" />
+
+<f:section name="content">
+	<f:if condition="{data.bodytext}">
+		<ul>
+			<f:for each="{data.bodytext}" as="bullet">
+				<f:cycle values="{0: 'odd', 1: 'even'}" as="zebraClass">
+					<li class="{zebraClass}">{bullet}</li>
+				</f:cycle>
+			</f:for>
+		</ul>
+	</f:if>
+</f:section>
