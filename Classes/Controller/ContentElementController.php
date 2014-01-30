@@ -72,6 +72,11 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 		}
 	}
 
+	/**
+	 * Action for CE "Bullet list"
+	 *
+	 * Transforms the bodytext first before it is passed to the view
+	 */
 	public function bulletsAction() {
 		$this->data['bodytext'] = \PatrickBroens\Contentelements\Utilities\Transform::linesToArray(
 			$this->data['bodytext']
@@ -80,6 +85,11 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 		$this->view->assign('data', $this->data);
 	}
 
+	/**
+	 * Action for CE "Table"
+	 *
+	 * Transforms the table data first to a multi dimensional array before it is passed to the view
+	 */
 	public function tableAction() {
 		$flexForm = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($this->data['pi_flexform']);
 		$this->data['table'] = array();
@@ -114,6 +124,11 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 		$this->view->assign('data', $this->data);
 	}
 
+	/**
+	 * Action for the CE "File links"
+	 *
+	 * Gets all file objects before passing it to the view
+	 */
 	public function uploadsAction() {
 		$fileObjects = $this->fileCollection->getAllSorted(
 			'',

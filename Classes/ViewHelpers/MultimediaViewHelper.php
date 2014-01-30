@@ -25,23 +25,26 @@ namespace PatrickBroens\Contentelements\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class RecordsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class MultimediaViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * Render the TypoScript Object RECORDS
+	 * Render the TypoScript Object MULTIMEDIA
 	 *
-	 * @param string $source Comma separated uids of records
-	 * @param string $tables Comma separated table names
-	 * @return string
+	 * @param $file The multimedia file
+	 * @param null $width Preferred width
+	 * @param null $height Preferred height
+	 * @param null $parameters Extra parameters
+	 * @return mixed
 	 */
-	public function render($source, $tables = 'tt_content') {
+	public function render($file, $width = NULL, $height = NULL, $parameters = NULL) {
 
-		$recordConfiguration = array(
-			'tables' => $tables,
-			'source' => $source,
-			'dontCheckPid' => 1
-		);
+			$multimediaConfiguration = array(
+				'file' => $file,
+				'width' => $width,
+				'height' => $height,
+				'params' => $parameters
+			);
 
-		return $GLOBALS['TSFE']->cObj->RECORDS($recordConfiguration);
-    }
+			return $GLOBALS['TSFE']->cObj->MULTIMEDIA($multimediaConfiguration);
+	    }
 }
