@@ -64,6 +64,10 @@ tt_content {
 	html {
 		file = {$contentelements.view.templateRootPath}Html.html
 	}
+	list < lib.stdContent
+	list {
+		file = {$contentelements.view.templateRootPath}List.html
+	}
 	shortcut < lib.stdContent
 	shortcut {
 		file = {$contentelements.view.templateRootPath}Shortcut.html
