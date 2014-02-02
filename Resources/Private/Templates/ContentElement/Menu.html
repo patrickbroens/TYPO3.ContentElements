@@ -1,0 +1,228 @@
+{namespace ce=PatrickBroens\Contentelements\ViewHelpers}
+
+<f:layout name="HeaderContentFooter" />
+
+<f:section name="content">
+	<f:if condition="{data.menu_type} == '0'">
+		<ce:menu.list pageUids="{data.pages}" as="pages">
+			<f:if condition="{pages}">
+				<ul class="csc-menu csc-menu-def">
+					<f:for each="{pages}" as="page">
+						<li>
+							<f:link.page pageUid="{page.uid}">
+								{page.title}
+							</f:link.page>
+						</li>
+					</f:for>
+				</ul>
+			</f:if>
+		</ce:menu.list>
+	</f:if>
+
+	<f:if condition="{data.menu_type} == '1'">
+		<ce:menu.directory pageUids="{data.pages}" as="pages">
+			<f:if condition="{pages}">
+				<ul class="csc-menu csc-menu-1">
+					<f:for each="{pages}" as="page">
+						<li>
+							<f:link.page pageUid="{page.uid}">
+								{page.title}
+							</f:link.page>
+						</li>
+					</f:for>
+				</ul>
+			</f:if>
+		</ce:menu.directory>
+	</f:if>
+
+	<f:if condition="{data.menu_type} == '2'">
+		<ce:menu.list entryLevel="0" as="pages" level="level">
+			<f:if condition="{pages}">
+				<ul class="csc-sitemap">
+					<f:for each="{pages}" as="page">
+						<li>
+							<f:link.page pageUid="{page.uid}">
+								{page.title}
+							</f:link.page>
+							<f:render partial="Menu/Directory" arguments="{pageUids: {0: '{page.uid}'}}" />
+						</li>
+					</f:for>
+				</ul>
+			</f:if>
+		</ce:menu.list>
+	</f:if>
+
+	<f:if condition="{data.menu_type} == '3'">
+		<ce:menu.list pageUids="{data.pages}" as="pages">
+			<f:if condition="{pages}">
+				<ul class="csc-menu csc-menu-3">
+					<f:for each="{pages}" as="page">
+						<ce:menu.section pageUid="{page.uid}" as="contentElements" type="header">
+							<f:if condition="{contentElements}">
+								<f:for each="{contentElements}" as="contentElement">
+									<li class="csc-section">
+										<f:link.page pageUid="{page.uid}" section="c{contentElement.uid}">
+											{contentElement.header}
+										</f:link.page>
+									</li>
+								</f:for>
+							</f:if>
+						</ce:menu.section>
+					</f:for>
+				</ul>
+			</f:if>
+		</ce:menu.list>
+	</f:if>
+
+	<f:if condition="{data.menu_type} == '4'">
+		<ce:menu.directory pageUids="{data.pages}" as="pages">
+			<f:if condition="{pages}">
+				<dl class="csc-menu csc-menu-4">
+					<f:for each="{pages}" as="page">
+						<dt>
+							<f:link.page pageUid="{page.uid}">
+								{page.title}
+							</f:link.page>
+						</dt>
+						<dd>
+							<f:if condition="{page.abstract}">
+								<f:then>
+									{page.abstract}
+								</f:then>
+								<f:else>
+									<f:if condition="{page.description}">
+										<f:then>
+											{page.description}
+										</f:then>
+										<f:else>
+											<f:if condition="{page.subtitle}">
+												<f:then>
+													{page.subtitle}
+												</f:then>
+												<f:else>
+													&nbsp;
+												</f:else>
+											</f:if>
+										</f:else>
+									</f:if>
+								</f:else>
+							</f:if>
+						</dd>
+					</f:for>
+				</dl>
+			</f:if>
+		</ce:menu.directory>
+	</f:if>
+
+	<f:if condition="{data.menu_type} == '5'">
+		<ce:menu.updated pageUids="{data.pages}" as="pages" maximumAge="3600*24*7">
+			<f:if condition="{pages}">
+				<ul class="csc-menu csc-menu-5">
+					<f:for each="{pages}" as="page">
+						<li>
+							<f:link.page pageUid="{page.uid}">
+								{page.title}
+							</f:link.page>
+						</li>
+					</f:for>
+				</ul>
+			</f:if>
+		</ce:menu.updated>
+	</f:if>
+
+	<f:if condition="{data.menu_type} == '6'">
+		<ce:menu.keywords pageUids="{data.pages}" as="pages">
+			<f:if condition="{pages}">
+				<ul class="csc-menu csc-menu-6">
+					<f:for each="{pages}" as="page">
+						<li>
+							<f:link.page pageUid="{page.uid}">
+								{page.title}
+							</f:link.page>
+						</li>
+					</f:for>
+				</ul>
+			</f:if>
+		</ce:menu.keywords>
+	</f:if>
+
+	<f:if condition="{data.menu_type} == '7'">
+		<ce:menu.directory pageUids="{data.pages}" as="pages">
+			<f:if condition="{pages}">
+				<ul class="csc-menu csc-menu-4">
+					<f:for each="{pages}" as="page">
+						<li>
+							<f:link.page pageUid="{page.uid}">
+								{page.title}
+							</f:link.page>
+						</li>
+						<ce:menu.section pageUid="{page.uid}" as="contentElements" type="header">
+							<f:if condition="{contentElements}">
+								<ul>
+									<f:for each="{contentElements}" as="contentElement">
+										<li class="csc-section">
+											<f:link.page pageUid="{page.uid}" section="c{contentElement.uid}">
+												{contentElement.header}
+											</f:link.page>
+										</li>
+									</f:for>
+								</ul>
+							</f:if>
+						</ce:menu.section>
+					</f:for>
+				</ul>
+			</f:if>
+		</ce:menu.directory>
+	</f:if>
+
+	<f:if condition="{data.menu_type} == '8'">
+		<ce:menu.directory pageUids="{data.pages}" as="pages" level="level">
+			<f:if condition="{pages}">
+				<ul class="csc-sitemap">
+					<f:for each="{pages}" as="page">
+						<li>
+							<f:link.page pageUid="{page.uid}">
+								{page.title}
+							</f:link.page>
+							<f:render partial="Menu/Directory" arguments="{pageUids: {0: '{page.uid}'}}" />
+						</li>
+					</f:for>
+				</ul>
+			</f:if>
+		</ce:menu.directory>
+	</f:if>
+
+	<f:if condition="{data.menu_type} == '9'">
+		<ce:menu.categories.pages categoryUids="{data.selected_categories}" as="pages" relationField="{data.category_field}">
+			<f:if condition="{pages}">
+				<ul class="csc-menu csc-menu-9">
+					<f:for each="{pages}" as="page">
+						<li>
+							<f:link.page pageUid="{page.uid}">
+								{page.title}
+							</f:link.page>
+						</li>
+					</f:for>
+				</ul>
+			</f:if>
+		</ce:menu.categories.pages>
+	</f:if>
+
+	<f:if condition="{data.menu_type} == 'categorized_content'">
+		<ce:menu.categories.content categoryUids="{data.selected_categories}" as="contentElements" relationField="{data.category_field}">
+			<f:if condition="{contentElements}">
+				<ul class="csc-menu csc-menu-categories-content">
+					<f:for each="{contentElements}" as="contentElement">
+						<f:if condition="{contentElement.header}">
+							<li>
+								<f:link.page pageUid="{contentElement.pid}" section="c{contentElement.uid}">
+									{contentElement.header}
+								</f:link.page>
+							</li>
+						</f:if>
+					</f:for>
+				</ul>
+			</f:if>
+		</ce:menu.categories.content>
+	</f:if>
+</f:section>

@@ -26,6 +26,7 @@ namespace PatrickBroens\Contentelements\Controller;
  ***************************************************************/
 
 use PatrickBroens\Contentelements\Utilities\FlexForm;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
 
@@ -50,7 +51,6 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	 * @inject
 	 */
 	protected $fileCollection;
-
 
 	/**
 	 * Initialization of all actions
@@ -102,7 +102,18 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	 * Action for CE "Menu / Sitemap"
 	 */
 	public function menuAction() {
-		
+		$this->data['pages'] = array_filter(array_unique(GeneralUtility::intExplode(
+			',',
+			$this->data['pages'],
+			TRUE
+		)));
+		$this->data['selected_categories'] = array_filter(array_unique(GeneralUtility::intExplode(
+			',',
+			$this->data['selected_categories'],
+			TRUE
+		)));
+
+		$this->view->assign('data', $this->data);
 	}
 
 	/**

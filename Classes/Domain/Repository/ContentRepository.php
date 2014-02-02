@@ -26,9 +26,9 @@ namespace PatrickBroens\Contentelements\Domain\Repository;
  ***************************************************************/
 
 /**
- * A repository for pages
+ * A repository for content
  */
-class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class ContentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 
 	/**
 	 * Initialize repository
@@ -42,72 +42,29 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		$this->setDefaultQuerySettings($defaultQuerySettings);
 	}
 
-	public function findByUids($pageUids) {
-		$query = $this->createQuery();
-
-		$query->matching(
-			$query->in('uid', $pageUids)
-		);
-
-		return $query->execute();
-	}
-
-	public function findByPids($pageUids) {
-		$query = $this->createQuery();
-
-		$query->matching(
-			$query->in('pid', $pageUids)
-		);
-
-		return $query->execute();
-	}
-
-	public function findByMinimumTimestamp($pageUids, $minimumTimeStamp, $excludeNoSearchPages) {
+	public function findBySection($pageUid, $type = '', $column = 0) {
 		$query = $this->createQuery();
 
 		$constraints = array(
-			$query->in('uid', $pageUids),
-			$query->greaterThanOrEqual('tstamp', $minimumTimeStamp)
+			$query->equals('pid', $pageUid),
+			$query->equals('columnPosition', $column)
 		);
 
-		if ($excludeNoSearchPages) {
-			$constraints[] = $query->equals('no_search', 0);
-		} else {
-			$constraints[] = $query->equals('no_search', 1);
+		switch($type) {
+			case 'all':
+				break;
+			case 'header':
+				$constraints[] = $query->equals('showInSectionMenus', 1);
+				$constraints[] = $query->logicalNot(
+					$query->equals('header', '')
+				);
+				$constraints[] = $query->logicalNot(
+					$query->equals('headerLayout', 100)
+				);
+				break;
+			default:
+				$constraints[] = $query->equals('showInSectionMenus', 1);
 		}
-
-		$query->matching(
-			$query->logicalAnd(
-				$constraints
-			)
-		);
-
-		return $query->execute();
-	}
-
-	public function findByKeywords($pageUids, $keywords, $excludeNoSearchPages) {
-		$query = $this->createQuery();
-
-		$constraints = array(
-			$query->in('uid', $pageUids)
-		);
-
-		if ($excludeNoSearchPages) {
-			$constraints[] = $query->equals('no_search', 0);
-		} else {
-			$constraints[] = $query->equals('no_search', 1);
-		}
-
-		$keywordConstraints = array();
-		foreach($keywords as $keyword) {
-			$keywordConstraints[] = $query->like('keywords', '%' . $keyword . '%');
-		}
-
-		$constraints[] = $query->logicalOr(
-			$keywordConstraints
-		);
-
-
 
 		$query->matching(
 			$query->logicalAnd(
@@ -132,7 +89,7 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 				$collection = \TYPO3\CMS\Frontend\Category\Collection\CategoryCollection::load(
 					$categoryUid,
 					TRUE,
-					'pages',
+					'tt_content',
 					$relationField
 				);
 				if ($collection->count() > 0) {

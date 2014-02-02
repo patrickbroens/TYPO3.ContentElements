@@ -1,0 +1,16 @@
+{namespace ce=PatrickBroens\Contentelements\ViewHelpers}
+
+<ce:menu.directory pageUids="{pageUids}" as="pages" level="level">
+	<f:if condition="{pages}">
+		<ul>
+			<f:for each="{pages}" as="page">
+				<li>
+					<f:link.page pageUid="{page.uid}">
+						{page.title}
+					</f:link.page>
+					<f:render partial="Menu/Directory" arguments="{pageUids: {0: '{page.uid}'}}" />
+				</li>
+			</f:for>
+		</ul>
+	</f:if>
+</ce:menu.directory>

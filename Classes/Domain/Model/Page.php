@@ -31,6 +31,14 @@ namespace PatrickBroens\Contentelements\Domain\Model;
 class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 
 	/**
+	 * The parent of the page
+	 *
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\PatrickBroens\Contentelements\Domain\Model\Page>
+	 * @lazy
+	 */
+	protected $parent;
+
+	/**
 	 * The page title
 	 *
 	 * @var string
@@ -106,8 +114,8 @@ class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	/**
 	 * @return mixed
 	 */
-	public function getNavTitle() {
-		return $this->navTitle;
+	public function getNavigationTitle() {
+		return $this->navigationTitle;
 	}
 
 	/**
@@ -136,5 +144,53 @@ class Page extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	 */
 	public function getDescription() {
 		return $this->description;
+	}
+
+	/**
+	 * Setter for content
+	 *
+	 * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $content One or more content objects
+	 * @return void
+	 */
+	public function setContent(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $content) {
+		$this->content = $content;
+	}
+
+	/**
+	 * Adds content to this page
+	 *
+	 * @param \PatrickBroens\Contentelements\Domain\Model\Content $content
+	 * @return void
+	 */
+	public function addCategory(\PatrickBroens\Contentelements\Domain\Model\Content $content) {
+		$this->content->attach($content);
+	}
+
+	/**
+	 * Removes content from this page
+	 *
+	 * @param \PatrickBroens\Contentelements\Domain\Model\Content $content
+	 * @return void
+	 */
+	public function removeCategory(\PatrickBroens\Contentelements\Domain\Model\Content $content) {
+		$this->content->detach($content);
+	}
+
+	/**
+	 * Remove all content from this page
+	 *
+	 * @return void
+	 */
+	public function removeAllContent() {
+		$this->content = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+	}
+
+	/**
+	 * Getter for content
+	 *
+	 * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage A storage holding \PatrickBroens\Contentelements\Domain\Model\Content objects
+	 */
+	public function getContent() {
+		return $this->content;
 	}
 }

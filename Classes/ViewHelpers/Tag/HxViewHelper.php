@@ -57,6 +57,10 @@ class HxViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedView
 	 * @return string Rendered Hx
 	 */
 	public function render($type = 0, $defaultType = 0, $subheader = FALSE) {
+		if ($type == 100) {
+			return '';
+		}
+
 		$this->defineTagName($type, $defaultType, $subheader);
 
 		$this->tag->setContent($this->renderChildren());
