@@ -28,20 +28,14 @@ namespace PatrickBroens\Contentelements\Domain\Repository;
 /**
  * A repository for pages
  */
-class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class PageRepository extends AbstractRepository {
 
 	/**
-	 * Initialize repository
+	 * Find pages by uid's
 	 *
-	 * @return void
+	 * @param array $pageUids The page uid's
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function initializeObject() {
-		$defaultQuerySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-		$defaultQuerySettings->setRespectStoragePage(FALSE);
-
-		$this->setDefaultQuerySettings($defaultQuerySettings);
-	}
-
 	public function findByUids($pageUids) {
 		$query = $this->createQuery();
 
@@ -52,6 +46,12 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		return $query->execute();
 	}
 
+	/**
+	 * Find subpages
+	 *
+	 * @param array $pageUids The parent page uid's
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 */
 	public function findByPids($pageUids) {
 		$query = $this->createQuery();
 
@@ -62,7 +62,15 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		return $query->execute();
 	}
 
-	public function findByMinimumTimestamp($pageUids, $minimumTimeStamp, $excludeNoSearchPages) {
+	/**
+	 * Find pages with a minimum timestamp
+	 *
+	 * @param array $pageUids The page uid's
+	 * @param integer $minimumTimeStamp The minimum unix timestamp
+	 * @param boolean $excludeNoSearchPages Exclude pages with 'Include in Search' disabled
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 */
+	public function findByMinimumTimestamp($pageUids, $minimumTimeStamp, $excludeNoSearchPages = TRUE) {
 		$query = $this->createQuery();
 
 		$constraints = array(
@@ -85,7 +93,15 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		return $query->execute();
 	}
 
-	public function findByKeywords($pageUids, $keywords, $excludeNoSearchPages) {
+	/**
+	 * Find pages which have keywords
+	 *
+	 * @param array $pageUids The page uid's
+	 * @param array $keywords The keywords to search for
+	 * @param boolean $excludeNoSearchPages Exclude pages with 'Include in Search' disabled
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 */
+	public function findByKeywords($pageUids, $keywords, $excludeNoSearchPages = TRUE) {
 		$query = $this->createQuery();
 
 		$constraints = array(
@@ -116,35 +132,5 @@ class PageRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		);
 
 		return $query->execute();
-	}
-
-	/**
-	 * @param $categoryUids
-	 * @param $relationField
-	 * @return array
-	 * @todo Bring to abstract, since the content repository is using the same. Only difference is table name
-	 */
-	public function findByCategories($categoryUids, $relationField) {
-		$result = array();
-
-		foreach ($categoryUids as $categoryUid) {
-			try {
-				$collection = \TYPO3\CMS\Frontend\Category\Collection\CategoryCollection::load(
-					$categoryUid,
-					TRUE,
-					'pages',
-					$relationField
-				);
-				if ($collection->count() > 0) {
-					foreach ($collection as $record) {
-						$result[$record['uid']] = $record;
-					}
-				}
-			} catch (\Exception $e) {
-
-			}
-		}
-
-		return $result;
 	}
 }

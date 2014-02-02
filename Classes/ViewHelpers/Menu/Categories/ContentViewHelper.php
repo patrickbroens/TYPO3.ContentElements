@@ -47,7 +47,7 @@ class ContentViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
 		if (empty($categoryUids)) {
 			return '';
 		}
-		$contentElements = $this->contentRepository->findByCategories($categoryUids, $relationField);
+		$contentElements = $this->contentRepository->findByCategories($categoryUids, $relationField, 'tt_content');
 
 		$this->templateVariableContainer->add($as, $contentElements);
 		$output = $this->renderChildren();

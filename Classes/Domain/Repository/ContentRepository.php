@@ -28,20 +28,25 @@ namespace PatrickBroens\Contentelements\Domain\Repository;
 /**
  * A repository for content
  */
-class ContentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
+class ContentRepository extends AbstractRepository {
 
 	/**
-	 * Initialize repository
+	 * Find content with 'Show in Section Menus' enabled in a page
 	 *
-	 * @return void
+	 * By default only content in colPos=0 will be found. This can be overruled by using $column
+	 *
+	 * If you set property type to "all", then the 'Show in Section Menus' checkbox is not considered
+	 * and all content elements are selected.
+	 *
+	 * If the property $type is 'header' then only content elements with a visible header layout
+	 * (and a non-empty 'header' field!) is selected.
+	 * In other words, if the header layout of an element is set to 'Hidden' then the page will not appear in the menu.
+	 *
+	 * @param array $pageUid The page uid's
+	 * @param string $type Search method
+	 * @param integer $column Restrict content by the column number
+	 * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function initializeObject() {
-		$defaultQuerySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-		$defaultQuerySettings->setRespectStoragePage(FALSE);
-
-		$this->setDefaultQuerySettings($defaultQuerySettings);
-	}
-
 	public function findBySection($pageUid, $type = '', $column = 0) {
 		$query = $this->createQuery();
 
@@ -73,35 +78,5 @@ class ContentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 		);
 
 		return $query->execute();
-	}
-
-	/**
-	 * @param $categoryUids
-	 * @param $relationField
-	 * @return array
-	 * @todo Bring to abstract, since the content repository is using the same. Only difference is table name
-	 */
-	public function findByCategories($categoryUids, $relationField) {
-		$result = array();
-
-		foreach ($categoryUids as $categoryUid) {
-			try {
-				$collection = \TYPO3\CMS\Frontend\Category\Collection\CategoryCollection::load(
-					$categoryUid,
-					TRUE,
-					'tt_content',
-					$relationField
-				);
-				if ($collection->count() > 0) {
-					foreach ($collection as $record) {
-						$result[$record['uid']] = $record;
-					}
-				}
-			} catch (\Exception $e) {
-
-			}
-		}
-
-		return $result;
 	}
 }

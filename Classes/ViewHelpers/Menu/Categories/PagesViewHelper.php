@@ -48,7 +48,7 @@ class PagesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelpe
 			return '';
 		}
 
-		$pages = $this->pageRepository->findByCategories($categoryUids, $relationField);
+		$pages = $this->pageRepository->findByCategories($categoryUids, $relationField, 'pages');
 
 		$this->templateVariableContainer->add($as, $pages);
 		$output = $this->renderChildren();
