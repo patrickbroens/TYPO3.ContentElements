@@ -4,9 +4,7 @@
 	<f:if condition="{data.bodytext}">
 		<ul class="ce-bullets">
 			<f:for each="{data.bodytext}" as="bullet">
-				<f:cycle values="{0: 'odd', 1: 'even'}" as="zebraClass">
-					<li class="{zebraClass}">{bullet}</li>
-				</f:cycle>
+				<li>{bullet}</li>
 			</f:for>
 		</ul>
 	</f:if>
