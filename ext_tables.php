@@ -17,6 +17,36 @@ if (!defined('TYPO3_MODE')) {
 	'Content Elements CSS (optional)'
 );
 
+/**
+ * Extra fields for the tt_content table
+ */
+$extraContentColumns = array(
+	'bullets_type' => array(
+		'exclude' => TRUE,
+		'label' => 'LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.bullets_type',
+		'config' => array(
+			'type' => 'select',
+			'items' => array(
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.bullets_type.ul', 'ul'),
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.bullets_type.ol', 'ol'),
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.bullets_type.dl', 'dl')
+			),
+			'default' => 'ul'
+		)
+	),
+);
+
+	// Adding fields to the tt_content table definition in TCA
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tt_content', $extraContentColumns);
+
+	// Add the field "bullets_type" to TCA for type "bullets"
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+	'tt_content',
+	'bullets_type;;;;1-1-1',
+	'bullets',
+	'after:bodytext'
+);
+
 	// Add flexform for CE "table"
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
 	'*',

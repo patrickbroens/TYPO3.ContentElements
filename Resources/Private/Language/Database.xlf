@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-02-07T20:22:32Z" product-name="contentelements">
+		<header/>
+		<body>
+			<trans-unit id="tt_content.bullets_type" xml:space="preserve">
+				<source>Type of bullets</source>
+			</trans-unit>
+			<trans-unit id="tt_content.bullets_type.ul" xml:space="preserve">
+				<source>Unordered list (bullets)</source>
+			</trans-unit>
+			<trans-unit id="tt_content.bullets_type.ol" xml:space="preserve">
+				<source>Ordered list (numbers)</source>
+			</trans-unit>
+			<trans-unit id="tt_content.bullets_type.dl" xml:space="preserve">
+				<source>Definition list</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

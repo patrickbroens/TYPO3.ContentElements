@@ -100,8 +100,11 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	 * @return void
 	 */
 	public function bulletsAction() {
-		$this->data['bodytext'] = \PatrickBroens\Contentelements\Utilities\Transform::linesToArray(
-			$this->data['bodytext']
+		$this->data['bullets']['data'] = \PatrickBroens\Contentelements\Utilities\Transform::CsvToArray(
+			$this->data['bodytext'],
+			'|',
+			'',
+			2
 		);
 
 		$this->view->assign('data', $this->data);
