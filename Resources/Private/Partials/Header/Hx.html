@@ -1,6 +1,6 @@
 {namespace ce=PatrickBroens\Contentelements\ViewHelpers}
 
-<ce:tag.hx type="{data.header_layout}" defaultType="{settings.defaultHeaderType}" class="{f:if(condition: data.header_position, then: 'ce-header-alignment-{data.header_position}')}">
+<ce:tag.hx type="{data.header_layout}" defaultType="{settings.defaultHeaderType}" class="{f:if(condition: data.header_position, then: 'ce-align-{data.header_position}')}">
 	<ce:link.typolink parameter="{data.header_link}">
 		{data.header}
 	</ce:link.typolink>

@@ -63,7 +63,7 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	}
 
 	/**
-	 * Default action
+	 * Default action, forward on field "CType"
 	 *
 	 * @return void
 	 */
@@ -73,11 +73,17 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			case 'bullets':
 				$this->forward('bullets');
 				break;
+			case 'image':
+				$this->forward('image');
+				break;
 			case 'menu':
 				$this->forward('menu');
 				break;
 			case 'table':
 				$this->forward('table');
+				break;
+			case 'textpic':
+				$this->forward('textpic');
 				break;
 			case 'uploads':
 				$this->forward('uploads');
@@ -88,7 +94,10 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	/**
 	 * Action for CE "Bullet list"
 	 *
-	 * Transforms the bodytext first before it is passed to the view
+	 * The field "bodytext" contains the bullet lines, separated by a line feed.
+	 * It's transformed to an array before sending it to the view.
+	 *
+	 * @return void
 	 */
 	public function bulletsAction() {
 		$this->data['bodytext'] = \PatrickBroens\Contentelements\Utilities\Transform::linesToArray(
@@ -99,7 +108,37 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	}
 
 	/**
+	 * Action for CE "Images"
+	 *
+	 * Files are FAL references, stored as comma separated values in a temporary field "image_fileReferenceUids".
+	 * The files are collected by these references before sending it to the view.
+	 *
+	 * Sets the gallery position as variables, for better usability in Fluid templates.
+	 *
+	 * @return void
+	 */
+	public function imageAction() {
+		$fileObjects = $this->fileCollection->getAllSorted(
+			'',
+			$this->data['image_fileReferenceUids']
+		);
+
+		$this->data['images'] = $fileObjects;
+
+		$this->galleryPosition();
+		$this->galleryWidth();
+
+		$this->view->assign('data', $this->data);
+	}
+
+	/**
 	 * Action for CE "Menu / Sitemap"
+	 *
+	 * The fields "pages" and "selected_categories" contain the selected pages/categories, stored as comma separated values.
+	 * Before sending it to the view they are transformed to an array of integers, instead of a string.
+	 * The values are filtered on removing zero and duplicates.
+	 *
+	 * @return void
 	 */
 	public function menuAction() {
 		$this->data['pages'] = array_filter(array_unique(GeneralUtility::intExplode(
@@ -119,7 +158,17 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	/**
 	 * Action for CE "Table"
 	 *
-	 * Transforms the table data first to a multi dimensional array before it is passed to the view
+	 * The table data is stored in the field "bodytext" as a string, where each line, separated by line feed,
+	 * represents a row. By default columns are separated by the delimiter character "vertical line |",
+	 * and can be enclosed (not default), like a regular CSV file.
+	 *
+	 * The table data is transformed to a multi dimensional array, taking the delimiter and enclosure into account,
+	 * before it is passed to the view.
+	 *
+	 * Some data of a table is stored in a FlexForm,
+	 * and is put in the "table" value to be able to read it in a Fluid template.
+	 *
+	 * @return void
 	 */
 	public function tableAction() {
 		$flexForm = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($this->data['pi_flexform']);
@@ -151,6 +200,31 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 		$this->data['table']['caption'] = FlexForm::getFlexFormValue($flexForm, 'acctables_caption');
 		$this->data['table']['useFooter'] = FlexForm::getFlexFormValue($flexForm, 'acctables_tfoot');
 		$this->data['table']['headerPosition'] = FlexForm::getFlexFormValue($flexForm, 'acctables_headerpos');
+		$this->data['table']['class'] = FlexForm::getFlexFormValue($flexForm, 'acctables_tableclass');
+
+		$this->view->assign('data', $this->data);
+	}
+
+	/**
+	 * Action for CE "Text & Images"
+	 *
+	 * Files are FAL references, stored as comma separated values in a temporary field "image_fileReferenceUids".
+	 * The files are collected by these references before sending it to the view.
+	 *
+	 * Sets the gallery position as variables, for better usability in Fluid templates.
+	 *
+	 * @return void
+	 */
+	public function textpicAction() {
+		$fileObjects = $this->fileCollection->getAllSorted(
+			'',
+			$this->data['image_fileReferenceUids']
+		);
+
+		$this->data['images'] = $fileObjects;
+
+		$this->galleryPosition();
+		$this->galleryWidth();
 
 		$this->view->assign('data', $this->data);
 	}
@@ -158,7 +232,9 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	/**
 	 * Action for the CE "File links"
 	 *
-	 * Gets all file objects before passing it to the view
+	 * Gets all file objects before passing it to the view.
+	 *
+	 * @return void
 	 */
 	public function uploadsAction() {
 		$fileObjects = $this->fileCollection->getAllSorted(
@@ -172,5 +248,61 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 		$this->data['files'] = $fileObjects;
 
 		$this->view->assign('data', $this->data);
+	}
+
+	/**
+	 * Define the gallery position, based on field "imageorient"
+	 *
+	 * Gallery has a horizontal and a vertical position towards the text
+	 * and a possible wrapping of the text around the gallery.
+	 *
+	 * @return void
+	 */
+	protected function galleryPosition() {
+		$galleryPosition = array(
+			'horizontal' => array(
+				'center' => array(0, 8),
+				'right' => array(1, 9, 17, 25),
+				'left' => array(2, 10, 18, 26)
+			),
+			'vertical' => array(
+				'above' => array(0, 1, 2),
+				'intext' => array(17, 18, 25, 26),
+				'below' => array(8, 9, 10)
+			)
+		);
+
+		foreach ($galleryPosition as $positionDirectionKey => $positionDirectionValue) {
+			foreach ($positionDirectionValue as $positionKey => $positionArray) {
+				if (in_array($this->data['imageorient'], $positionArray)) {
+					$this->data['galleryPosition'][$positionDirectionKey] = $positionKey;
+				}
+			}
+		}
+
+		if (in_array($this->data['imageorient'], array(25, 26))) {
+			$this->data['galleryPosition']['noWrap'] = TRUE;
+		}
+	}
+
+	/**
+	 * Set the gallery width based on vertical position and register settings
+	 *
+	 * @return void
+	 */
+	protected function galleryWidth() {
+		if ($this->data['galleryPosition']['vertical'] === 'intext') {
+			if ($GLOBALS['TSFE']->register['maxImageWidthInText']) {
+				$this->data['galleryWidth'] = $GLOBALS['TSFE']->register['maxImageWidthInText'];
+			} else {
+				$this->data['galleryWidth'] = $this->settings['maximumImageWidthInText'];
+			}
+		} else {
+			if ($GLOBALS['TSFE']->register['maxImageWidth']) {
+				$this->data['galleryWidth'] = $GLOBALS['TSFE']->register['maxImageWidth'];
+			} else {
+				$this->data['galleryWidth'] = $this->settings['maximumImageWidth'];
+			}
+		}
 	}
 }

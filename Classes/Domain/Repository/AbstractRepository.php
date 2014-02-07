@@ -45,8 +45,9 @@ class AbstractRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {
 	/**
 	 * Find records from a certain table which have categories assigned
 	 *
-	 * @param $categoryUids The uids of the categories
-	 * @param $relationField Field relation in MM table
+	 * @param array $categoryUids The uids of the categories
+	 * @param string $relationField Field relation in MM table
+	 * @param string $tableName Name of the table to search in
 	 * @return array
 	 */
 	public function findByCategories($categoryUids, $relationField, $tableName = 'pages') {

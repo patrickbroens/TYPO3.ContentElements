@@ -25,9 +25,24 @@ namespace PatrickBroens\Contentelements\ViewHelpers\Uri;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+/**
+ * A view helper for creating an uri to TYPO3 pages using Typolink notation.
+ *
+ * = Example =
+ *
+ * <code title="link to the page 123">
+ * <ce:uri.typolink parameter="123" />
+ * </code>
+ *
+ * <output>
+ * index.php?id=123
+ * </output>
+ */
 class TypolinkViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
+	 * Render the view helper
+	 *
 	 * @param string $parameter Parameter
 	 * @return string Rendered page URI
 	 */

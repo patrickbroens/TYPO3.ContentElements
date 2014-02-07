@@ -25,6 +25,25 @@ namespace PatrickBroens\Contentelements\ViewHelpers\Menu;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+/**
+ * A view helper which returns the subpages of the given pages
+ *
+ * = Example =
+ *
+ * <code title="Directory of pages with uid = 1 and uid = 2">
+ * <ce:menu.directory pageUids="{0: 1, 1: 2}" as="pages">
+ *   <f:for each="{pages}" as="page">
+ *     {page.title}
+ *   </f:for>
+ * </ce:menu.directory>
+ * </code>
+ *
+ * <output>
+ * Subpage 1 of page with uid = 1
+ * Subpage 2 of page with uid = 1
+ * Subpage 1 of page with uid = 2
+ * </output>
+ */
 class DirectoryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
@@ -36,29 +55,29 @@ class DirectoryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 	protected $pageRepository;
 
 	/**
+	 * Render the view helper
 	 *
-	 *
-	 *
-	 * @param string $as
-	 * @param integer $pageUids
-	 * @param integer $entryLevel
-	 * @param string $level
-	 * @param integer $maximumLevel
+	 * @param string $as The name of the iteration variable
+	 * @param array $pageUids The page uids of the parent pages
+	 * @param integer $entryLevel The entry level
+	 * @param string $level The name of the level variable
+	 * @param integer $maximumLevel The maximum level for the menu, if nested
+	 * @param boolean $includeNotInMenu Should pages which are hidden for menu's be included
+	 * @param boolean $includeMenuSeparator Should pages of type "Menu separator" be included
 	 * @return string
-	 * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
-	 * @todo Make a menu array with cur, curifsub, act, actifsub
-	 * @todo Check on doktype for menu
-	 * @todo Check rootline
-	 * @todo Level should be in register, so it does not have to be passed
-	 * @todo menuLevel can be removed then
-	 * @todo Level key should be configurable, like level="fooLevel"
 	 */
-	public function render($as, $pageUids = NULL, $entryLevel = NULL, $level = 'level', $maximumLevel = 10) {
-		// Remove empty entries from array
-		$pageUids = array_filter($pageUids);
+	public function render(
+		$as,
+		$pageUids = array(),
+		$entryLevel = NULL,
+		$level = 'level',
+		$maximumLevel = 10,
+		$includeNotInMenu = FALSE,
+		$includeMenuSeparator = FALSE
+	) {
 
 		// If no pages have been defined, use the current page
-		if ($pageUids === NULL) {
+		if (empty($pageUids)) {
 			if ($entryLevel !== NULL) {
 				$pageUids = array($GLOBALS['TSFE']->tmpl->rootLine[$entryLevel]['uid']);
 			} else {
@@ -66,13 +85,11 @@ class DirectoryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewH
 			}
 		}
 
-		// Throw an exception when pageUids is not traversable
-		if (is_object($pageUids) && !$pageUids instanceof \Traversable) {
-			throw new \TYPO3\CMS\Fluid\Core\ViewHelper\Exception(
-				'Menu/DirectoryViewHelper pageUids only supports arrays or objects implementing \Traversable interface',
-				1391113811
-			);
-		}
+		// Remove empty entries from array
+		$pageUids = array_filter($pageUids);
+
+		$this->pageRepository->setIncludeNotInMenu($includeNotInMenu);
+		$this->pageRepository->setIncludeMenuSeparator($includeMenuSeparator);
 
 		$pages = $this->pageRepository->findByPids($pageUids);
 

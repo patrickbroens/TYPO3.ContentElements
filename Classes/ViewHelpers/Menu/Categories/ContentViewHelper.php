@@ -25,6 +25,24 @@ namespace PatrickBroens\Contentelements\ViewHelpers\Menu\Categories;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+/**
+ * A view helper which returns content elements with assigned categories
+ *
+ * = Example =
+ *
+ * <code title="Content elements with categories 1 and 2 assigned">
+ * <ce:menu.categories.content categoryUids="{0: 1, 1: 2}" as="contentElements" relationField="category_field">
+ *   <f:for each="{contentElements}" as="contentElement">
+ *     {contentElement.header}
+ *   </f:for>
+ * </ce:menu.categories.content>
+ * </code>
+ *
+ * <output>
+ * Content element with category 1 assigned
+ * Content element with category 1 and 2 assigned
+ * </output>
+ */
 class ContentViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
@@ -36,17 +54,18 @@ class ContentViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
 	protected $contentRepository;
 
 	/**
+	 * Render the view helper
 	 *
-	 * @param array $categoryUids
-	 * @param string $as
-	 * @param string $relationField
+	 * @param array $categoryUids The categories assigned to the content elements
+	 * @param string $as The name of the iteration variable
+	 * @param string $relationField The category field for MM relation table
 	 * @return string
-	 * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
 	 */
 	public function render($categoryUids, $as, $relationField) {
 		if (empty($categoryUids)) {
 			return '';
 		}
+
 		$contentElements = $this->contentRepository->findByCategories($categoryUids, $relationField, 'tt_content');
 
 		$this->templateVariableContainer->add($as, $contentElements);

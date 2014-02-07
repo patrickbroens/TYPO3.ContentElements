@@ -25,6 +25,24 @@ namespace PatrickBroens\Contentelements\ViewHelpers\Menu\Categories;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+/**
+ * A view helper which returns pages with assigned categories
+ *
+ * = Example =
+ *
+ * <code title="Content elements with categories 1 and 2 assigned">
+ * <ce:menu.categories.pages categoryUids="{0: 1, 1: 2}" as="pages" relationField="categories">
+ *   <f:for each="{pages}" as="page">
+ *     {page.title}
+ *   </f:for>
+ * </ce:menu.categories.pages>
+ * </code>
+ *
+ * <output>
+ * Page with category 1 assigned
+ * Page with category 1 and 2 assigned
+ * </output>
+ */
 class PagesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
@@ -36,17 +54,20 @@ class PagesViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelpe
 	protected $pageRepository;
 
 	/**
+	 * Render the view helper
 	 *
-	 * @param array $categoryUids
-	 * @param string $as
-	 * @param string $relationField
+	 * @param array $categoryUids The categories assigned to the pages
+	 * @param string $as The name of the iteration variable
+	 * @param string $relationField The category field for MM relation table
+	 * @param boolean $includeNotInMenu Should pages which are hidden for menu's be included
 	 * @return string
-	 * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
 	 */
-	public function render($categoryUids, $as, $relationField) {
+	public function render($categoryUids, $as, $relationField, $includeNotInMenu = FALSE) {
 		if (empty($categoryUids)) {
 			return '';
 		}
+
+		$this->pageRepository->setIncludeNotInMenu($includeNotInMenu);
 
 		$pages = $this->pageRepository->findByCategories($categoryUids, $relationField, 'pages');
 

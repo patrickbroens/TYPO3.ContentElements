@@ -1,0 +1,39 @@
+plugin.tx_contentelements._CSS_DEFAULT_STYLE (
+	.ce-align-left { text-align: left; }
+	.ce-align-center { text-align: center; }
+	.ce-align-right { text-align: right; }
+
+	.ce-table td, .ce-table th { vertical-align: top; }
+
+	.ce-textpic, .ce-nowrap .ce-bodytext, .ce-gallery, .ce-row { overflow: hidden; }
+
+	.ce-left .ce-gallery, .ce-column { float: left; }
+	.ce-center .ce-outer { position: relative; float: right; right: 50%; }
+	.ce-center .ce-inner { position: relative; float: right; right: -50%; }
+	.ce-right .ce-gallery { float: right; }
+
+	.ce-gallery figure { display: table; margin: 0; }
+	.ce-gallery figcaption { display: table-caption; caption-side: bottom; }
+	.ce-gallery img { display: block; }
+	.ce-border img {
+		border: {$styles.content.imgtext.borderThick}px solid {$styles.content.imgtext.borderColor};
+		padding: {$styles.content.imgtext.borderSpace}px;
+	}
+
+	.ce-intext.ce-right .ce-gallery, .ce-intext.ce-left .ce-gallery, .ce-above .ce-gallery {
+		margin-bottom: {$styles.content.imgtext.textMargin}px;
+	}
+	.ce-intext.ce-right .ce-gallery { margin-left: {$styles.content.imgtext.textMargin}px; }
+	.ce-intext.ce-left .ce-gallery { margin-right: {$styles.content.imgtext.textMargin}px; }
+	.ce-below .ce-gallery { margin-top: {$styles.content.imgtext.textMargin}px; }
+
+	.ce-column { margin-right: {$styles.content.imgtext.colSpace}px; }
+	.ce-column:last-child { margin-right: 0; }
+
+	.ce-row { margin-bottom: {$styles.content.imgtext.rowSpace}px; }
+	.ce-row:last-child { margin-bottom: 0; }
+
+	.ce-above .ce-bodytext { clear: both; }
+
+	.ce-intext.ce-left ol, .ce-intext.ce-left ul { padding-left: 40px; overflow: auto; }
+)

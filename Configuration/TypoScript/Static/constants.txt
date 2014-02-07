@@ -1,0 +1,38 @@
+contentelements {
+	view {
+		templateRootPath = EXT:contentelements/Resources/Private/Templates/ContentElement/
+		partialRootPath = EXT:contentelements/Resources/Private/Partials/
+		layoutRootPath = EXT:contentelements/Resources/Private/Layouts/
+	}
+}
+
+content {
+	defaultHeaderType = 2
+	shortcut.tables = tt_content,tt_address,tt_links,tt_guest,tt_board,tt_calender,tt_products,tt_news,tt_rating,tt_poll
+}
+
+styles.content {
+	allowTags = a, abbr, acronym, address, article, aside, b, bdo, big, blockquote, br, caption, center, cite, code, col, colgroup, dd, del, dfn, dl, div, dt, em, font, footer, header, h1, h2, h3, h4, h5, h6, hr, i, img, ins, kbd, label, li, link, meta, nav, ol, p, pre, q, samp, sdfield, section, small, span, strike, strong, style, sub, sup, table, thead, tbody, tfoot, td, th, tr, title, tt, u, ul, var
+}
+
+styles.content.imgtext {
+	# TIP! if register[maxImageWidth] is set, this will override maxW
+	# cat=content/cImage/b1; type=int+; label= Max Image Width: This indicates that maximum number of pixels (width) a block of images inserted as content is allowed to consume.
+	maxW = 600
+	# cat=content/cImage/b2; type=int+; label= Max Image Width (Text): Same as above, but this is the maximum width when text is wrapped around an imageblock. Default is 50% of the normal Max Image Width.
+	maxWInText = 300
+
+	# cat=content/cImage/g1; type=int[0-100]; label= Advanced, Column space: Horizontal distance between images in a block in content elements of type "Images" or "Text & Images". If you change this manually in your CSS, you need to adjust this setting accordingly.
+	colSpace = 10
+	# cat=content/cImage/g2; type=int[0-100]; label= Advanced, Row space: Vertical distance after each image row in content elements of type "Images" or "Text & Images". If you change this manually in your CSS, you need to adjust this setting accordingly.
+	rowSpace = 10
+	# cat=content/cImage/g3; type=int[0-100]; label= Advanced, Margin to text: Horizontal distance between an imageblock and text in content elements of type "Text & Images".
+	textMargin = 10
+
+	# cat=content/cImage/i1; type=color; label= Image border, color: Bordercolor of images in content elements when "Border"-option for element is set.
+	borderColor = black
+	# cat=content/cImage/i2; type=int[0-100]; label= Image border, thickness: Thickness of border around images in content elements when "Border"-option for element is set.
+	borderThick = 2
+	# cat=content/cImage/i3; type=int+; label= Image border, padding: Padding left and right to the image, around the border.
+	borderSpace = 0
+}

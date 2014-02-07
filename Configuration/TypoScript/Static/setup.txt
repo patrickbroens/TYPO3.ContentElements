@@ -1,14 +1,23 @@
-<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Setup/styles.content.ts">
-<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Setup/lib.parseTarget.ts">
-<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Setup/lib.parseFunc.ts">
-<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Setup/lib.parseFunc_RTE.ts">
-<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Setup/config.extbase.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/styles.content.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/lib.parseTarget.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/lib.parseFunc.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/lib.parseFunc_RTE.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/config.extbase.ts">
 
 plugin.tx_contentelements {
 	view {
 		file = {$contentelements.view.templateRootPath}Default.html
 		partialRootPath = {$contentelements.view.partialRootPath}
 		layoutRootPath = {$contentelements.view.layoutRootPath}
+	}
+	settings {
+		columnSpacing = {$styles.content.imgtext.colSpace}
+		rowSpacing = {$styles.content.imgtext.rowSpace}
+		maximumImageWidth = {$styles.content.imgtext.maxW}
+		maximumImageWidthInText = {$styles.content.imgtext.maxWInText}
+		textMargin = {$styles.content.imgtext.textMargin}
+		borderWidth = {$styles.content.imgtext.borderThick}
+		borderPadding = {$styles.content.imgtext.borderSpace}
 	}
 }
 
@@ -65,6 +74,14 @@ tt_content {
 	html {
 		file = {$contentelements.view.templateRootPath}Html.html
 	}
+	image < lib.userContent
+	image {
+		switchableControllerActions {
+			ContentElement {
+				1 = image
+			}
+		}
+	}
 	list < lib.stdContent
 	list {
 		file = {$contentelements.view.templateRootPath}List.html
@@ -96,6 +113,14 @@ tt_content {
 	text < lib.stdContent
 	text {
 		file = {$contentelements.view.templateRootPath}Text.html
+	}
+	textpic < lib.userContent
+	textpic {
+		switchableControllerActions {
+			ContentElement {
+				1 = textpic
+			}
+		}
 	}
 	uploads < lib.userContent
 	uploads {

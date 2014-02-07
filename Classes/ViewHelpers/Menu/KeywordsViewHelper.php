@@ -25,6 +25,25 @@ namespace PatrickBroens\Contentelements\ViewHelpers\Menu;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+/**
+ * A view helper which returns pages with one of the same keywords as the given pages
+ *
+ * = Example =
+ *
+ * <code title="Pages with the similar keyword(s) of page uid = 1 and uid = 2">
+ * <ce:menu.keywords pageUids="{0: 1, 1: 2}" as="pages">
+ *   <f:for each="{pages}" as="page">
+ *     {page.title}
+ *   </f:for>
+ * </ce:menu.keywords>
+ * </code>
+ *
+ * <output>
+ * Page with the keywords "typo3" and "fluid"
+ * Page with the keyword "fluid"
+ * Page with the keyword "typo3"
+ * </output>
+ */
 class KeywordsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
@@ -42,30 +61,28 @@ class KeywordsViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 	protected $configurationManager;
 
 	/**
+	 * Render the view helper
 	 *
-	 *
-	 *
-	 * @param string $as
-	 * @param array $pageUids
-	 * @param mixed $keywords
-	 * @param boolean $excludeNoSearchPages
+	 * @param string $as The name of the iteration variable
+	 * @param array $pageUids The page uids of the pages with the keywords
+	 * @param mixed $keywords The keywords to search for
+	 * @param boolean $excludeNoSearchPages Exclude pages with field 'Exclude in search' disabled
+	 * @param boolean $includeNotInMenu Should pages which are hidden for menu's be included
 	 * @return string
-	 * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
-	 * @todo Implement more functionality like in tslib_menu->makeMenu()
 	 */
-	public function render($as, $pageUids = NULL, $keywords = '', $excludeNoSearchPages = TRUE) {
+	public function render(
+		$as,
+		$pageUids = array(),
+		$keywords = '',
+		$excludeNoSearchPages = TRUE,
+		$includeNotInMenu = FALSE
+	) {
 		// If no pages have been defined, use the current page
-		if (!$pageUids) {
+		if (empty($pageUids)) {
 			$pageUids = array($GLOBALS['TSFE']->page['uid']);
 		}
 
-		// Throw an exception when pageUids is not traversable
-		if (is_object($pageUids) && !$pageUids instanceof \Traversable) {
-			throw new \TYPO3\CMS\Fluid\Core\ViewHelper\Exception(
-				'Menu/UpdatedViewHelper pageUids only supports arrays or objects implementing \Traversable interface',
-				1391113811
-			);
-		}
+		$this->pageRepository->setIncludeNotInMenu($includeNotInMenu);
 
 		$contentObject = $this->configurationManager->getContentObject();
 

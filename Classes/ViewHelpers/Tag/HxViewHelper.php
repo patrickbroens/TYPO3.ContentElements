@@ -25,6 +25,33 @@ namespace PatrickBroens\Contentelements\ViewHelpers\Tag;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+/**
+ * View Helper which creates a header tag (h1 - hx)
+ *
+ * If "type" is 100, this means the header is hidden
+ *
+ * = Example =
+ *
+ * <code title="Header 1">
+ * <ce:tag.hx type="1" />
+ *   This is the header
+ * </ce:tag.hx>
+ * </code>
+ *
+ * <output>
+ * <h1>This is the header</h1>
+ * </output>
+ *
+ * <code title="Subheader">
+ * <ce:tag.hx type="1" subheader="1" />
+  *   This is the subheader
+  * </ce:tag.hx>
+ * </code>
+ *
+ * <output>
+ * <h2>This is the subheader</h2>
+ * </output>
+ */
 class HxViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
 
 	/**
@@ -51,6 +78,8 @@ class HxViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedView
 	}
 
 	/**
+	 * Render the view helper
+	 *
 	 * @param integer $type Type of header
 	 * @param integer $defaultType Default type if no type is given
 	 * @param boolean $subheader Is subheader
@@ -69,6 +98,14 @@ class HxViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedView
 		return $result;
 	}
 
+	/**
+	 * Define the tag name
+	 *
+	 * @param $type Type of header
+	 * @param $defaultType Default type if no type is given
+	 * @param $subheader Is subheader
+	 * @return void
+	 */
 	protected function defineTagName($type, $defaultType, $subheader) {
 		if (!empty($type)) {
 			$this->type = $type;

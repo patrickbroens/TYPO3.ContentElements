@@ -39,7 +39,6 @@ class FlexForm {
 	 * @param string $language Language pointer, eg. "lDEF
 	 * @param string $value Value pointer, eg. "vDEF
 	 * @return string The content.
-	 * @todo Define visibility
 	 */
 	public function getFlexFormValue($flexForm, $fieldName, $sheet = 'sDEF', $language = 'lDEF', $value = 'vDEF') {
 		$sheet = is_array($flexForm) ? $flexForm['data'][$sheet][$language] : '';
@@ -55,9 +54,7 @@ class FlexForm {
 	 * @param array $fieldNames Array where each value points to a key in the FlexForms content - the input array will have the value returned pointed to by these keys. All integer keys will not take their integer counterparts, but rather traverse the current position in the array an return element number X (whether this is right behavior is not settled yet...)
 	 * @param string $value Value for outermost key, typ. "vDEF" depending on language.
 	 * @return mixed The value, typ. string.
-	 * @access private
 	 * @see pi_getFFvalue()
-	 * @todo Define visibility
 	 */
 	protected function getFlexFormValueFromSheet($sheet, $fieldNames, $key) {
 		$temporarySheet = $sheet;

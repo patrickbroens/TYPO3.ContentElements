@@ -25,15 +25,30 @@ namespace PatrickBroens\Contentelements\ViewHelpers;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+/**
+ * A view helper which returns the TypoScript cObj MULTIMEDIA
+ *
+ * = Example =
+ *
+ * <code title="Example">
+ * <ce:multimedia file="uploads/media/{data.multimedia}" parameters="{data.bodytext}" />
+ * </code>
+ *
+ * <output>
+ * <img src="path/to/image/1" width="365" height="200" />
+ * <img src="path/to/image/2" width="365" height="250" />
+ * <img src="path/to/image/3" width="365" height="200" />
+ * </output>
+ */
 class MultimediaViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * Render the TypoScript Object MULTIMEDIA
 	 *
 	 * @param $file The multimedia file
-	 * @param null $width Preferred width
-	 * @param null $height Preferred height
-	 * @param null $parameters Extra parameters
+	 * @param integer $width Preferred width
+	 * @param integer $height Preferred height
+	 * @param string $parameters Extra parameters
 	 * @return mixed
 	 */
 	public function render($file, $width = NULL, $height = NULL, $parameters = NULL) {

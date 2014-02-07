@@ -78,7 +78,13 @@ class FileCollection {
 	 * @param string $sortingProperty The property to sort the files with
 	 * @return array The files
 	 */
-	public function getAllSorted($fileUids = '', $referencesUids = '', $fileCollectionUids = '', $folderIdentifiers = '', $sortingProperty = '') {
+	public function getAllSorted(
+		$fileUids = '',
+		$referencesUids = '',
+		$fileCollectionUids = '',
+		$folderIdentifiers = '',
+		$sortingProperty = ''
+	) {
 		$this->addAll($fileUids, $referencesUids, $fileCollectionUids, $folderIdentifiers);
 
 		$this->sort($sortingProperty);
@@ -89,6 +95,7 @@ class FileCollection {
 	/**
 	 * Get all the files from references, file collections and folders, in order of incoming values
 	 *
+	 * @param string $fileUids The file uids, comma separated
 	 * @param string $referencesUids The references uids, comma separated
 	 * @param string $fileCollectionUids The file collections uids, comma separated
 	 * @param string $folderIdentifiers The folder identifiers, comma separated
@@ -145,7 +152,7 @@ class FileCollection {
 	}
 
 	/**
-	 * Add files to the collection from one single reference
+	 * Add file to the collection from one single reference
 	 *
 	 * @param integer $referenceUid The reference uid
 	 * @return void

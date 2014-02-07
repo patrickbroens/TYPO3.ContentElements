@@ -20,7 +20,7 @@ styles.content {
 	getRight < styles.content.get
 	getRight.select.where = colPos=2
 
-	# get content, margin
+	# get content, border
 	getBorder < styles.content.get
 	getBorder.select.where = colPos=3
 

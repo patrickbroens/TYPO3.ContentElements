@@ -25,13 +25,33 @@ namespace PatrickBroens\Contentelements\Utilities;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+/**
+ * Transformation methods
+ */
 class Transform {
+
+	/**
+	 * Convert lines, divided by LF, into an array
+	 *
+	 * @param string $input The lines
+	 * @return array
+	 */
 	public function linesToArray($input) {
 		$rows = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(LF, $input);
 
 		return $rows;
 	}
 
+
+	/**
+	 * Convert a string, formatted as CSV, into an multidimensional array
+	 *
+	 * @param string $input
+	 * @param string $delimiter
+	 * @param string $enclosure
+	 * @param int $columns
+	 * @return array
+	 */
 	public function CsvToArray($input, $delimiter = ',', $enclosure = '"', $columns = 0) {
 		$multiArray = array();
 		$maximumCellCount = 0;

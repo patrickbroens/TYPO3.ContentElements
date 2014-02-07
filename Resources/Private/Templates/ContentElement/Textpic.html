@@ -1,0 +1,34 @@
+{namespace ce=PatrickBroens\Contentelements\ViewHelpers}
+
+<div id="c{data.uid}" {f:if(condition: data.layout, then: 'class="ce-layout-{data.layout}"')}>
+
+	<f:if condition="{data.galleryPosition.noWrap} != 1">
+		<f:render partial="Header" arguments="{_all}" />
+	</f:if>
+
+	<div class="ce-textpic ce-{data.galleryPosition.horizontal} ce-{data.galleryPosition.vertical}{f:if(condition: '{data.galleryPosition.noWrap}', then: ' ce-nowrap')}">
+
+		<f:if condition="{data.galleryPosition.vertical} != 'below'">
+			<f:render partial="ImageGallery" arguments="{_all}" />
+		</f:if>
+
+		<div class="ce-bodytext">
+
+			<f:if condition="{data.galleryPosition.noWrap}">
+				<f:render partial="Header" arguments="{_all}" />
+			</f:if>
+
+			<f:format.html>{data.bodytext}</f:format.html>
+		</div>
+
+		<f:if condition="{data.galleryPosition.vertical} == 'below'">
+			<f:render partial="ImageGallery" arguments="{_all}" />
+		</f:if>
+
+	</div>
+
+	<f:render partial="Footer" arguments="{_all}" />
+</div>
+
+
+

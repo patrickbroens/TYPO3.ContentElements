@@ -25,6 +25,25 @@ namespace PatrickBroens\Contentelements\ViewHelpers\Menu;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+/**
+ * A view helper which returns a list of pages
+ *
+ * = Example =
+ *
+ * <code title="List of pages with uid = 1 and uid = 2">
+ * <ce:menu.list pageUids="{0: 1, 1: 2}" as="pages">
+ *   <f:for each="{pages}" as="page">
+ *     {page.title}
+ *   </f:for>
+ * </ce:menu.list>
+ * </code>
+ *
+ * <output>
+ * Page with uid = 1
+ * Page with uid = 2
+ * </output>
+ */
+
 class ListViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
@@ -36,17 +55,27 @@ class ListViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 	protected $pageRepository;
 
 	/**
+	 * Render the view helper
 	 *
-	 *
-	 * @param string $as
-	 * @param integer $pageUids
-	 * @param integer $entryLevel
-	 * @param string $level
-	 * @param integer $maximumLevel
+	 * @param string $as The name of the iteration variable
+	 * @param array $pageUids The page uids of the pages in the list
+	 * @param integer $entryLevel The entry level
+	 * @param string $level The name of the level variable
+	 * @param integer $maximumLevel The maximum level for the menu, if nested
+	 * @param boolean $includeNotInMenu Should pages which are hidden for menu's be included
+	 * @param boolean $includeMenuSeparator Should pages of type "Menu separator" be included
 	 * @return string
 	 * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
 	 */
-	public function render($as, $pageUids = NULL, $entryLevel = NULL, $level = 'level', $maximumLevel = 10) {
+	public function render(
+		$as,
+		$pageUids = array(),
+		$entryLevel = NULL,
+		$level = 'level',
+		$maximumLevel = 10,
+		$includeNotInMenu = FALSE,
+		$includeMenuSeparator = FALSE
+	) {
 		// Remove empty entries from array
 		$pageUids = array_filter($pageUids);
 
@@ -59,13 +88,8 @@ class ListViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
 			}
 		}
 
-		// Throw an exception when pageUids is not traversable
-		if (is_object($pageUids) && !$pageUids instanceof \Traversable) {
-			throw new \TYPO3\CMS\Fluid\Core\ViewHelper\Exception(
-				'Menu/ListViewHelper pageUids only supports arrays or objects implementing \Traversable interface',
-				1391113811
-			);
-		}
+		$this->pageRepository->setIncludeNotInMenu($includeNotInMenu);
+		$this->pageRepository->setIncludeMenuSeparator($includeMenuSeparator);
 
 		$pages = $this->pageRepository->findByUids($pageUids);
 

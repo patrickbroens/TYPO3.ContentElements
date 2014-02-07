@@ -1,15 +1,15 @@
 {namespace ce=PatrickBroens\Contentelements\ViewHelpers}
 
 <f:if condition="{data.header}">
-	<f:if condition="{ce:or(array:'{0: data.subheader, 1: data.date}')}">
+	<ce:if condition="{data.subheader}" or="{0: data.date}">
 		<header>
-	</f:if>
+	</ce:if>
 
 	<f:render partial="Header/Hx" arguments="{_all}" />
 	<f:render partial="Header/SubHeader" arguments="{_all}" />
 	<f:render partial="Header/Date" arguments="{_all}" />
 
-	<f:if condition="{ce:or(array:'{0: data.subheader, 1: data.date}')}">
+	<ce:if condition="{data.subheader}" or="{0: data.date}">
 		</header>
-	</f:if>
+	</ce:if>
 </f:if>

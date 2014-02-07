@@ -25,19 +25,45 @@ namespace PatrickBroens\Contentelements\ViewHelpers\Link;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+/**
+ * A view helper for creating links to TYPO3 pages using Typolink notation.
+ *
+ * = Example =
+ *
+ * <code title="link to the current page">
+ * <ce:link.typolink parameter="123">page link</ce:link.typolink>
+ * </code>
+ *
+ * <output>
+ * <a href="index.php?id=123">page link</a>
+ * </output>
+ */
+
 class TypolinkViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
-	 * @param string $parameter
-	 * @param string $target
-	 * @param int $noCache
-	 * @param int $useCacheHash
-	 * @param array $additionalParams
-	 * @param string $ATagParams
-	 * @param string $extTarget
+	 * Render the view helper
+	 *
+	 * @param string $parameter This is the main data that is used for creating the link
+	 * @param string $target Target used for internal links
+	 * @param int $noCache Adds a "&no_cache=1"-parameter to the link
+	 * @param int $useCacheHash If set, the additionalParams list is exploded and calculated into a hash string appended to the URL
+	 * @param array $additionalParams Parameters that are added to the end of the URL
+	 * @param string $ATagParams Additional attributes for the anchor <a> tag, like class="foo"
+	 * @param string $extTarget Target used for external links
 	 * @return mixed
+	 * @see http://docs.typo3.org/typo3cms/TyposcriptReference/Functions/Typolink/Index.html
+	 * @todo Add more functionality of Typolink
 	 */
-	public function render($parameter, $target = '', $noCache = 0, $useCacheHash = 1, $additionalParams = array(), $ATagParams = '', $extTarget = '') {
+	public function render(
+		$parameter,
+		$target = '',
+		$noCache = 0,
+		$useCacheHash = 1,
+		$additionalParams = array(),
+		$ATagParams = '',
+		$extTarget = ''
+	) {
 
 		$typoLinkConfiguration = array(
 			'parameter' => $parameter,
@@ -60,7 +86,10 @@ class TypolinkViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHe
 		}
 
 		if (count($additionalParams)) {
-			$typoLinkConfiguration['additionalParams'] = \TYPO3\CMS\Core\Utility\GeneralUtility::implodeArrayForUrl('', $additionalParams);
+			$typoLinkConfiguration['additionalParams'] = \TYPO3\CMS\Core\Utility\GeneralUtility::implodeArrayForUrl(
+				'',
+				$additionalParams
+			);
 		}
 
 		if (strlen($ATagParams)) {

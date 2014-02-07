@@ -38,58 +38,11 @@ class Content extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {
 	protected $header = '';
 
 	/**
-	 * Header type
-	 *
-	 * @var string
-	 */
-	protected $headerLayout = '';
-
-	/**
-	 * The column the content resides in
-	 *
-	 * @var int
-	 */
-	protected $columnPosition = 0;
-
-	/**
-	 * Show in section menus
-	 *
-	 * @var boolean
-	 */
-	protected $showInSectionMenus = FALSE;
-
-	/**
 	 * Get the header
 	 *
 	 * @return string
 	 */
 	public function getHeader() {
 		return $this->header;
-	}
-
-	/**
-	 * Get the header layout
-	 *
-	 * @return string
-	 */
-	public function getHeaderLayout() {
-		return $this->headerLayout;
-	}
-
-	/**
-	 * Get the column the content resides in
-	 *
-	 * @return int
-	 */
-	public function getColumnPosition() {
-		return $this->columnPosition;
-	}
-
-	/**
-	 * Check if the content should be shown in section menus
-	 * @return boolean
-	 */
-	public function showInSectionMenus() {
-		return $this->showInSectionMenus;
 	}
 }
