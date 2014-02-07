@@ -1,0 +1,27 @@
+# ***************************************************************************************
+# Page TSconfig for "contentelements"
+#
+# Removes obsolete type values and fields from "Content Element" table "tt_content"
+# ***************************************************************************************
+
+TCEFORM {
+	tt_content {
+
+			# Remove obsolete fields
+		image_frames.disabled = 1
+		spaceBefore.disabled = 1
+		spaceAfter.disabled = 1
+		section_frame.disabled = 1
+
+			# Change labels
+		header_layout {
+			altLabels {
+				1 = Heading 1
+				2 = Heading 2
+				3 = Heading 3
+				4 = Heading 4
+				5 = Heading 5
+			}
+		}
+	}
+}

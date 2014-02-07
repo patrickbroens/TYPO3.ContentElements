@@ -16,3 +16,8 @@ $GLOBALS['TYPO3_CONF_VARS']['FE']['contentRenderingTemplates'] = array(
 	),
 	array()
 );
+
+	// Remove obsolete fields
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+	'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:contentelements/Configuration/TypoScript/PageTSconfig/setup.txt">'
+);
