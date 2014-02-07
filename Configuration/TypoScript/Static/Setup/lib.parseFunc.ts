@@ -30,7 +30,7 @@ lib.parseFunc {
 	}
 	allowTags = {$styles.content.allowTags}
 	denyTags = *
-	sword = <span class="csc-sword">|</span>
+	sword = <span class="ce-sword">|</span>
 	constants = 1
 	nonTypoTagStdWrap {
 		HTMLparser = 1
