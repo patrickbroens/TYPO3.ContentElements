@@ -5,7 +5,7 @@ plugin.tx_contentelements._CSS_DEFAULT_STYLE (
 
 	.ce-table td, .ce-table th { vertical-align: top; }
 
-	.ce-textpic, .ce-nowrap .ce-bodytext, .ce-gallery, .ce-row { overflow: hidden; }
+	.ce-textpic, .ce-nowrap .ce-bodytext, .ce-gallery, .ce-row, .ce-uploads li { overflow: hidden; }
 
 	.ce-left .ce-gallery, .ce-column { float: left; }
 	.ce-center .ce-outer { position: relative; float: right; right: 50%; }
@@ -36,4 +36,9 @@ plugin.tx_contentelements._CSS_DEFAULT_STYLE (
 	.ce-above .ce-bodytext { clear: both; }
 
 	.ce-intext.ce-left ol, .ce-intext.ce-left ul { padding-left: 40px; overflow: auto; }
+
+	.ce-uploads { margin: 0; padding: 0; }
+	.ce-uploads li { list-style: none outside none; margin: 1em 0; }
+	.ce-uploads img { float: left; padding-right: 1em; vertical-align: top; }
+	.ce-uploads span { display: block; }
 )

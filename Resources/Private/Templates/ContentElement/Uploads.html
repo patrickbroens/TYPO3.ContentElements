@@ -4,7 +4,7 @@
 
 <f:section name="content">
 	<f:if condition="{data.files}">
-		<ul>
+		<ul class="ce-uploads">
 			<f:for each="{data.files}" as="file" iteration="fileIterator">
 				<li>
 
@@ -27,20 +27,20 @@
 
 					<f:if condition="{file.name}">
 						<a href="{file.publicUrl}">
-							<span class="csc-uploads-fileName">
+							<span class="ce-uploads-fileName">
 								{file.name}
 							</span>
 						</a>
 					</f:if>
 
 					<f:if condition="{file.properties.description}">
-						<span class="csc-uploads-description">
+						<span class="ce-uploads-description">
 							{file.properties.description}
 						</span>
 					</f:if>
 
 					<f:if condition="{data.filelink_size}">
-						<span class="csc-uploads-fileSize">
+						<span class="ce-uploads-fileSize">
 							<f:format.bytes value="{file.properties.size}" />
 						</span>
 					</f:if>
