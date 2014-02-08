@@ -8,11 +8,11 @@
 			<f:for each="{data.files}" as="file" iteration="fileIterator">
 				<li>
 
-					<f:if condition="{data.layout} == 1">
+					<f:if condition="{data.uploads_type} == 1">
 						<f:image src="typo3/gfx/fileicons/{file.extension}.gif" alt=""/>
 					</f:if>
 
-					<f:if condition="{data.layout} > 1">
+					<f:if condition="{data.uploads_type} == 2">
 						<f:if condition="{f:uri.image(src: 'file:{f:if(condition: file.originalFile, then: \'file:{file.originalFile.uid}\', else: \'file:{file.uid}\')}')} != '/'">
 							<f:then>
 								<a href="{file.publicUrl}">
@@ -25,25 +25,27 @@
 						</f:if>
 					</f:if>
 
-					<f:if condition="{file.name}">
-						<a href="{file.publicUrl}">
-							<span class="ce-uploads-fileName">
-								{file.name}
+					<div>
+						<f:if condition="{file.name}">
+							<a href="{file.publicUrl}">
+								<span class="ce-uploads-fileName">
+									{file.name}
+								</span>
+							</a>
+						</f:if>
+
+						<ce:if condition="{file.properties.description}" and="{0: '{data.uploads_description}'}">
+							<span class="ce-uploads-description">
+								{file.properties.description}
 							</span>
-						</a>
-					</f:if>
+						</ce:if>
 
-					<f:if condition="{file.properties.description}">
-						<span class="ce-uploads-description">
-							{file.properties.description}
-						</span>
-					</f:if>
-
-					<f:if condition="{data.filelink_size}">
-						<span class="ce-uploads-fileSize">
-							<f:format.bytes value="{file.properties.size}" />
-						</span>
-					</f:if>
+						<f:if condition="{data.filelink_size}">
+							<span class="ce-uploads-fileSize">
+								<f:format.bytes value="{file.properties.size}" />
+							</span>
+						</f:if>
+					</div>
 
 				</li>
 			</f:for>

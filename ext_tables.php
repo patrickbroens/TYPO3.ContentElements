@@ -34,6 +34,30 @@ $extraContentColumns = array(
 			'default' => 'ul'
 		)
 	),
+	'uploads_description' => array(
+		'exclude' => TRUE,
+		'label' => 'LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.uploads_description',
+		'config' => array(
+			'type' => 'check',
+			'default' => 0,
+			'items' => array(
+				array('LLL:EXT:lang/locallang_core.xml:labels.enabled', 1)
+			)
+		)
+	),
+	'uploads_type' => array(
+		'exclude' => TRUE,
+		'label' => 'LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.uploads_type',
+		'config' => array(
+			'type' => 'select',
+			'items' => array(
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.uploads_type.0', 0),
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.uploads_type.1', 1),
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.uploads_type.2', 2)
+			),
+			'default' => 0
+		)
+	)
 );
 
 	// Adding fields to the tt_content table definition in TCA
@@ -45,6 +69,13 @@ $extraContentColumns = array(
 	'bullets_type;;;;1-1-1',
 	'bullets',
 	'after:layout'
+);
+
+	// Add the field "uploads_type" to TCA for palette "uploadslayout"
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+	'tt_content',
+	'uploadslayout',
+	'uploads_description, uploads_type'
 );
 
 	// Add flexform for CE "table"

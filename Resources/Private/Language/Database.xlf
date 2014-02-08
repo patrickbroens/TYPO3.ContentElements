@@ -15,6 +15,21 @@
 			<trans-unit id="tt_content.bullets_type.dl" xml:space="preserve">
 				<source>Definition list</source>
 			</trans-unit>
+			<trans-unit id="tt_content.uploads_description" xml:space="preserve">
+				<source>Display description</source>
+			</trans-unit>
+			<trans-unit id="tt_content.uploads_type" xml:space="preserve">
+				<source>Display file/icon/thumbnail</source>
+			</trans-unit>
+			<trans-unit id="tt_content.uploads_type.0" xml:space="preserve">
+				<source>Only file name</source>
+			</trans-unit>
+			<trans-unit id="tt_content.uploads_type.1" xml:space="preserve">
+				<source>File name and file extension icon</source>
+			</trans-unit>
+			<trans-unit id="tt_content.uploads_type.2" xml:space="preserve">
+				<source>File name and thumbnail (if possible)</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
