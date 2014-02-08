@@ -27,11 +27,11 @@ $extraContentColumns = array(
 		'config' => array(
 			'type' => 'select',
 			'items' => array(
-				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.bullets_type.ul', 'ul'),
-				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.bullets_type.ol', 'ol'),
-				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.bullets_type.dl', 'dl')
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.bullets_type.0', 0),
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.bullets_type.1', 1),
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.bullets_type.2', 2)
 			),
-			'default' => 'ul'
+			'default' => 0
 		)
 	),
 	'uploads_description' => array(

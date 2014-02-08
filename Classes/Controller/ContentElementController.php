@@ -103,7 +103,7 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	 * @return void
 	 */
 	public function bulletsAction() {
-		if ($this->data['bullets_type'] != 'dl') {
+		if ($this->data['bullets_type'] != 2) {
 			$this->data['bullets'] = \PatrickBroens\Contentelements\Utilities\Transform::linesToArray(
 				$this->data['bodytext']
 			);

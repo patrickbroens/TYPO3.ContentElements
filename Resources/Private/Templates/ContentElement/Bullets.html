@@ -1,7 +1,7 @@
 <f:layout name="HeaderContentFooter" />
 
 <f:section name="content">
-	<f:if condition="{data.bullets_type} == 'ul'">
+	<f:if condition="{data.bullets_type} == 0">
 		<f:if condition="{data.bullets}">
 			<ul class="ce-bullets">
 				<f:for each="{data.bullets}" as="bullet">
@@ -11,7 +11,7 @@
 		</f:if>
 	</f:if>
 
-	<f:if condition="{data.bullets_type} == 'ol'">
+	<f:if condition="{data.bullets_type} == 1">
 		<f:if condition="{data.bullets}">
 			<ol class="ce-bullets">
 				<f:for each="{data.bullets}" as="bullet">
@@ -21,7 +21,7 @@
 		</f:if>
 	</f:if>
 
-	<f:if condition="{data.bullets_type} == 'dl'">
+	<f:if condition="{data.bullets_type} == 2">
 			<f:if condition="{data.bullets}">
 				<dl class="ce-bullets">
 					<f:for each="{data.bullets}" as="definitionListItem">
