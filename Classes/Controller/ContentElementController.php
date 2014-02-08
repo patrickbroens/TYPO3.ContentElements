@@ -97,15 +97,24 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	 * The field "bodytext" contains the bullet lines, separated by a line feed.
 	 * It's transformed to an array before sending it to the view.
 	 *
+	 * For a definition list, there is also a second column for the description.
+	 * A definition list will get a multidimensional array.
+	 *
 	 * @return void
 	 */
 	public function bulletsAction() {
-		$this->data['bullets']['data'] = \PatrickBroens\Contentelements\Utilities\Transform::CsvToArray(
-			$this->data['bodytext'],
-			'|',
-			'',
-			2
-		);
+		if ($this->data['bullets_type'] != 'dl') {
+			$this->data['bullets'] = \PatrickBroens\Contentelements\Utilities\Transform::linesToArray(
+				$this->data['bodytext']
+			);
+		} else {
+			$this->data['bullets'] = \PatrickBroens\Contentelements\Utilities\Transform::CsvToArray(
+				$this->data['bodytext'],
+				'|',
+				'',
+				2
+			);
+		}
 
 		$this->view->assign('data', $this->data);
 	}

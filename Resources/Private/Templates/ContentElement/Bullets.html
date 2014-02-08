@@ -2,29 +2,29 @@
 
 <f:section name="content">
 	<f:if condition="{data.bullets_type} == 'ul'">
-		<f:if condition="{data.bullets.data}">
+		<f:if condition="{data.bullets}">
 			<ul class="ce-bullets">
-				<f:for each="{data.bullets.data}" as="bullet">
-					<li>{bullet.0}</li>
+				<f:for each="{data.bullets}" as="bullet">
+					<li>{bullet}</li>
 				</f:for>
 			</ul>
 		</f:if>
 	</f:if>
 
 	<f:if condition="{data.bullets_type} == 'ol'">
-		<f:if condition="{data.bullets.data}">
+		<f:if condition="{data.bullets}">
 			<ol class="ce-bullets">
-				<f:for each="{data.bullets.data}" as="bullet">
-					<li>{bullet.0}</li>
+				<f:for each="{data.bullets}" as="bullet">
+					<li>{bullet}</li>
 				</f:for>
 			</ol>
 		</f:if>
 	</f:if>
 
 	<f:if condition="{data.bullets_type} == 'dl'">
-			<f:if condition="{data.bullets.data}">
+			<f:if condition="{data.bullets}">
 				<dl class="ce-bullets">
-					<f:for each="{data.bullets.data}" as="definitionListItem">
+					<f:for each="{data.bullets}" as="definitionListItem">
 						<f:for each="{definitionListItem}" as="termDescription" iteration="termDescriptionIterator">
 							<f:if condition="{termDescriptionIterator.isFirst}">
 								<f:then>
