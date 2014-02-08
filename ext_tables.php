@@ -44,7 +44,7 @@ $extraContentColumns = array(
 	'tt_content',
 	'bullets_type;;;;1-1-1',
 	'bullets',
-	'after:bodytext'
+	'after:layout'
 );
 
 	// Add flexform for CE "table"
