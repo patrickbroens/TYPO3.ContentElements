@@ -183,10 +183,9 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	 * @return void
 	 */
 	public function tableAction() {
-		$flexForm = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($this->data['pi_flexform']);
 		$this->data['table'] = array();
 
-		$delimiterCharacterCode = FlexForm::getFlexFormValue($flexForm, 'tableparsing_delimiter', 's_parsing');
+		$delimiterCharacterCode = $this->data['table_delimiter'];
 
 		if ($delimiterCharacterCode) {
 			$delimiter = chr(intval($delimiterCharacterCode));
@@ -194,7 +193,7 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			$delimiter = '|';
 		}
 
-		$enclosureCharacterCode = FlexForm::getFlexFormValue($flexForm, 'tableparsing_quote', 's_parsing');
+		$enclosureCharacterCode = $this->data['table_enclosure'];
 
 		if ($enclosureCharacterCode) {
 			$enclosure = chr(intval($enclosureCharacterCode));
@@ -208,11 +207,6 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			$enclosure,
 			$this->data['cols']
 		);
-
-		$this->data['table']['caption'] = FlexForm::getFlexFormValue($flexForm, 'acctables_caption');
-		$this->data['table']['useFooter'] = FlexForm::getFlexFormValue($flexForm, 'acctables_tfoot');
-		$this->data['table']['headerPosition'] = FlexForm::getFlexFormValue($flexForm, 'acctables_headerpos');
-		$this->data['table']['class'] = FlexForm::getFlexFormValue($flexForm, 'acctables_tableclass');
 
 		$this->view->assign('data', $this->data);
 	}

@@ -1,13 +1,13 @@
 <f:if condition="{rowIterator.isFirst}">
 	<f:then>
-		<f:if condition="{data.table.headerPosition} == 'top'">
+		<f:if condition="{data.table_header_position} == 1">
 			<f:then>
 				<th>
 			</f:then>
 			<f:else>
 				<f:if condition="{columnIterator.isFirst}">
 					<f:then>
-						<f:if condition="{data.table.headerPosition} == 'left'">
+						<f:if condition="{data.table_header_position} == 2">
 							<f:then>
 								<th>
 							</f:then>
@@ -26,7 +26,7 @@
 	<f:else>
 		<f:if condition="{columnIterator.isFirst}">
 			<f:then>
-				<f:if condition="{data.table.headerPosition} == 'left'">
+				<f:if condition="{data.table_header_position} == 2">
 					<f:then>
 						<th>
 					</f:then>
@@ -53,14 +53,14 @@
 
 <f:if condition="{rowIterator.isFirst}">
 	<f:then>
-		<f:if condition="{data.table.headerPosition} == 'top'">
+		<f:if condition="{data.table_header_position} == 1">
 			<f:then>
 				</th>
 			</f:then>
 			<f:else>
 				<f:if condition="{columnIterator.isFirst}">
 					<f:then>
-						<f:if condition="{data.table.headerPosition} == 'left'">
+						<f:if condition="{data.table_header_position} == 2">
 							<f:then>
 								</th>
 							</f:then>
@@ -79,7 +79,7 @@
 	<f:else>
 		<f:if condition="{columnIterator.isFirst}">
 			<f:then>
-				<f:if condition="{data.table.headerPosition} == 'left'">
+				<f:if condition="{data.table_header_position} == 2">
 					<f:then>
 						</th>
 					</f:then>

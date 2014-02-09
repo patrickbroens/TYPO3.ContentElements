@@ -3,14 +3,14 @@
 <f:section name="content">
 	<f:if condition="{data.table.data}">
 		<table class="ce-table">
-			<f:if condition="{data.table.caption}">
-				<caption>{data.table.caption}</caption>
+			<f:if condition="{data.table_caption}">
+				<caption>{data.table_caption}</caption>
 			</f:if>
 			<f:for each="{data.table.data}" as="row" iteration="rowIterator">
 
 				<f:if condition="{rowIterator.isFirst}">
 					<f:then>
-						<f:if condition="{data.table.headerPosition} == 'top'">
+						<f:if condition="{data.table_header_position} == 1">
 							<f:then>
 								<thead>
 							</f:then>
@@ -21,7 +21,7 @@
 					</f:then>
 					<f:else>
 						<f:if condition="{rowIterator.isLast}">
-							<f:if condition="{data.table.useFooter}">
+							<f:if condition="{data.table_tfoot}">
 								</tbody>
 								<tfoot>
 							</f:if>
@@ -37,14 +37,14 @@
 
 				<f:if condition="{rowIterator.isFirst}">
 					<f:then>
-						<f:if condition="{data.table.headerPosition} == 'top'">
+						<f:if condition="{data.table_header_position} == 1">
 							</thead>
 							<tbody>
 						</f:if>
 					</f:then>
 					<f:else>
 						<f:if condition="{rowIterator.isLast}">
-							<f:if condition="{data.table.useFooter}">
+							<f:if condition="{data.table_tfoot}">
 								<f:then>
 									</tfoot>
 								</f:then>

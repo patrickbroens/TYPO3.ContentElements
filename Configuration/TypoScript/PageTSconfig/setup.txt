@@ -12,6 +12,11 @@ TCEFORM {
 		spaceBefore.disabled = 1
 		spaceAfter.disabled = 1
 		section_frame.disabled = 1
+		table_bgColor.disabled = 1
+		table_border.disabled = 1
+		table_cellspacing.disabled = 1
+		table_cellpadding.disabled = 1
+
 
 			# Change labels
 		header_layout {

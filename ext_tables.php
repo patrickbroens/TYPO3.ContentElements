@@ -3,23 +3,21 @@ if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }
 
-	// Add an entry in the static template list found in sys_templates for static TS
+// Add an entry in the static template list found in sys_templates for static TS
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
 	$_EXTKEY,
 	'Configuration/TypoScript/Static',
 	'Content Elements'
 );
 
-	// Add an entry in the static template list found in sys_templates for CSS TS
+// Add an entry in the static template list found in sys_templates for CSS TS
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
 	$_EXTKEY,
 	'Configuration/TypoScript/Styling',
 	'Content Elements CSS (optional)'
 );
 
-/**
- * Extra fields for the tt_content table
- */
+//Extra fields for the tt_content table
 $extraContentColumns = array(
 	'bullets_type' => array(
 		'exclude' => TRUE,
@@ -32,6 +30,65 @@ $extraContentColumns = array(
 				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.bullets_type.2', 2)
 			),
 			'default' => 0
+		)
+	),
+	'table_caption' => array(
+		'exclude' => TRUE,
+		'label' => 'LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_caption',
+		'config' => array(
+			'type' => 'input'
+		)
+	),
+	'table_delimiter' => array(
+		'exclude' => TRUE,
+		'label' => 'LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_delimiter',
+		'config' => array(
+			'type' => 'select',
+			'items' => array(
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_delimiter.124', 124),
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_delimiter.59', 59),
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_delimiter.44', 44),
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_delimiter.58', 58),
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_delimiter.9', 9)
+			),
+			'default' => 124
+		)
+	),
+	'table_enclosure' => array(
+		'exclude' => TRUE,
+		'label' => 'LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_enclosure',
+		'config' => array(
+			'type' => 'select',
+			'items' => array(
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_enclosure.0', 0),
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_enclosure.39', 39),
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_enclosure.34', 34)
+			),
+			'default' => 0
+		)
+	),
+	'table_header_position' => array(
+		'exclude' => TRUE,
+		'label' => 'LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_header_position',
+		'config' => array(
+			'type' => 'select',
+			'items' => array(
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_header_position.0', 0),
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_header_position.1', 1),
+				array('LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_header_position.2', 2)
+			),
+			'default' => 0
+		)
+	),
+	'table_tfoot' => array(
+		'exclude' => TRUE,
+		'label' => 'LLL:EXT:contentelements/Resources/Private/Language/Database.xlf:tt_content.table_tfoot',
+		'config' => array(
+			'type' => 'check',
+			'default' => 0,
+			'items' => array(
+				array('LLL:EXT:lang/locallang_core.xml:labels.enabled', 1)
+			)
 		)
 	),
 	'uploads_description' => array(
@@ -60,10 +117,14 @@ $extraContentColumns = array(
 	)
 );
 
-	// Adding fields to the tt_content table definition in TCA
+// Adding fields to the tt_content table definition in TCA
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tt_content', $extraContentColumns);
 
-	// Add the field "bullets_type" to TCA for type "bullets"
+/**
+ * CE "Bullets"
+ */
+
+// Add the field "bullets_type" to TCA for type "bullets"
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
 	'tt_content',
 	'bullets_type;;;;1-1-1',
@@ -71,21 +132,45 @@ $extraContentColumns = array(
 	'after:layout'
 );
 
-	// Add the field "uploads_type" to TCA for palette "uploadslayout"
+/**
+ * CE "File links"
+ */
+
+// Add the fields "uploads_description" and "uploads_type" to TCA for palette "uploadslayout"
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
 	'tt_content',
 	'uploadslayout',
 	'uploads_description, uploads_type'
 );
 
-	// Add flexform for CE "table"
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-	'*',
-	'FILE:EXT:contentelements/Configuration/FlexForm/Table.xml',
-	'table'
+/**
+ * CE "Table"
+ */
+
+// Add a new palette
+$TCA['tt_content']['palettes']['tableconfiguration'] = array(
+	'canNotCollapse' => 1,
+	'showitem' => 'table_delimiter, table_enclosure'
+) ;
+
+// Add the fields "cols", "table_header_position", "table_tfoot" to TCA for palette "tablelayout"
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+	'tt_content',
+	'tablelayout',
+	'cols, table_header_position, table_tfoot'
 );
 
-	// Add the flexform to TCA for CE "table"
-$GLOBALS['TCA']['tt_content']['types']['table']['showitem'] = 'CType;;4;;1-1-1, hidden, header;;3;;2-2-2, linkToTop;;;;4-4-4,
-			--div--;LLL:EXT:cms/locallang_ttc.xlf:CType.I.5, layout;;10;;3-3-3, cols, bodytext;;9;nowrap:wizards[table], text_properties, pi_flexform,
-			--div--;LLL:EXT:cms/locallang_tca.xlf:pages.tabs.access, starttime, endtime, fe_group';
+// Restructure the TCA to have the fields in the proper tabs and palettes
+$TCA['tt_content']['types']['table']['showitem'] = '
+	--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.general;general,
+	--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.header;header,
+		bodytext;;tableconfiguration;nowrap:wizards[table], table_caption,
+	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.appearance,
+		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.frames;frames,
+		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.table_layout;tablelayout,
+	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,
+		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.visibility;visibility,
+		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.access;access,
+	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.extended,
+	--div--;LLL:EXT:lang/locallang_tca.xlf:sys_category.tabs.category, categories
+';

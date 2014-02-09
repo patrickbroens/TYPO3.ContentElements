@@ -15,6 +15,54 @@
 			<trans-unit id="tt_content.bullets_type.2" xml:space="preserve">
 				<source>Definition list</source>
 			</trans-unit>
+			<trans-unit id="tt_content.table_caption" xml:space="preserve">
+				<source>Table caption</source>
+			</trans-unit>
+			<trans-unit id="tt_content.table_delimiter" xml:space="preserve">
+				<source>Field Delimiter</source>
+			</trans-unit>
+			<trans-unit id="tt_content.table_delimiter.124" xml:space="preserve">
+				<source>| (Pipe)</source>
+			</trans-unit>
+			<trans-unit id="tt_content.table_delimiter.59" xml:space="preserve">
+				<source>; (Semicolon)</source>
+			</trans-unit>
+			<trans-unit id="tt_content.table_delimiter.58" xml:space="preserve">
+				<source>: (Colon)</source>
+			</trans-unit>
+			<trans-unit id="tt_content.table_delimiter.44" xml:space="preserve">
+				<source>, (Comma)</source>
+			</trans-unit>
+			<trans-unit id="tt_content.table_delimiter.9" xml:space="preserve">
+				<source>⇥ (Tab)</source>
+			</trans-unit>
+			<trans-unit id="tt_content.table_enclosure" xml:space="preserve">
+				<source>Text enclosure</source>
+			</trans-unit>
+			<trans-unit id="tt_content.table_enclosure.0" xml:space="preserve">
+				<source>None</source>
+			</trans-unit>
+			<trans-unit id="tt_content.table_enclosure.39" xml:space="preserve">
+				<source>' (Single quotes)</source>
+			</trans-unit>
+			<trans-unit id="tt_content.table_enclosure.34" xml:space="preserve">
+				<source>" (Double quotes)</source>
+			</trans-unit>
+			<trans-unit id="tt_content.table_header_position" xml:space="preserve">
+				<source>Table header position</source>
+			</trans-unit>
+			<trans-unit id="tt_content.table_header_position.0" xml:space="preserve">
+				<source>No header</source>
+			</trans-unit>
+			<trans-unit id="tt_content.table_header_position.1" xml:space="preserve">
+				<source>Top</source>
+			</trans-unit>
+			<trans-unit id="tt_content.table_header_position.2" xml:space="preserve">
+				<source>Left</source>
+			</trans-unit>
+			<trans-unit id="tt_content.table_tfoot" xml:space="preserve">
+				<source>Use table footer (wrap last row with &lt;tfoot&gt; tags)</source>
+			</trans-unit>
 			<trans-unit id="tt_content.uploads_description" xml:space="preserve">
 				<source>Display description</source>
 			</trans-unit>
