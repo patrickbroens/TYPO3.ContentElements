@@ -9,5 +9,5 @@ CREATE TABLE tt_content (
 	table_header_position tinyint(3) unsigned DEFAULT '0' NOT NULL,
 	table_tfoot tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	uploads_description tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	uploads_type tinyint(3) unsigned DEFAULT '0' NOT NULL,
+	uploads_type tinyint(3) unsigned DEFAULT '0' NOT NULL
 );
