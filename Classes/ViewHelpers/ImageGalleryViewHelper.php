@@ -189,6 +189,10 @@ class ImageGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 			$columns = $this->fileCount;
 		}
 
+		if ($columns === 0) {
+			$columns = 1;
+		}
+
 			// Calculate the rows from the amount of files and the columns
 		$rows = ceil($this->fileCount / $columns);
 
