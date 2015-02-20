@@ -3,50 +3,10 @@
 <INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/lib.parseFunc.ts">
 <INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/lib.parseFunc_RTE.ts">
 <INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/config.extbase.ts">
-
-plugin.tx_contentelements {
-	view {
-		file = {$contentelements.view.templateRootPath}Default.html
-		partialRootPath = {$contentelements.view.partialRootPath}
-		layoutRootPath = {$contentelements.view.layoutRootPath}
-	}
-	settings {
-		columnSpacing = {$styles.content.imgtext.colSpace}
-		rowSpacing = {$styles.content.imgtext.rowSpace}
-		maximumImageWidth = {$styles.content.imgtext.maxW}
-		maximumImageWidthInText = {$styles.content.imgtext.maxWInText}
-		textMargin = {$styles.content.imgtext.textMargin}
-		borderWidth = {$styles.content.imgtext.borderThick}
-		borderPadding = {$styles.content.imgtext.borderSpace}
-	}
-}
-
-lib.stdContent >
-lib.stdContent = FLUIDTEMPLATE
-lib.stdContent {
-	file = {$contentelements.view.templateRootPath}Default.html
-	partialRootPath = {$contentelements.view.partialRootPath}
-	layoutRootPath = {$contentelements.view.layoutRootPath}
-
-	settings {
-		defaultHeaderType = {$content.defaultHeaderType}
-		shortcutTables = {$content.shortcut.tables}
-	}
-}
-
-lib.userContent >
-lib.userContent = USER
-lib.userContent {
-	userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
-	vendorName = PatrickBroens
-	extensionName = Contentelements
-	pluginName = Contentelements
-	switchableControllerActions {
-		ContentElement {
-			1 = default
-		}
-	}
-}
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/plugin.tx_contentelements.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/lib.stdContent.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/lib.userContent.ts">
+<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/media.ts">
 
 tt_content >
 tt_content = CASE
@@ -86,6 +46,10 @@ tt_content {
 	list {
 		file = {$contentelements.view.templateRootPath}List.html
 	}
+	media < lib.stdContent
+	media {
+		file = {$contentelements.view.templateRootPath}Media.html
+	}
 	menu < lib.userContent
 	menu {
 		switchableControllerActions {
@@ -93,10 +57,6 @@ tt_content {
 				1 = menu
 			}
 		}
-	}
-	multimedia < lib.stdContent
-	multimedia {
-		file = {$contentelements.view.templateRootPath}Multimedia.html
 	}
 	shortcut < lib.stdContent
 	shortcut {

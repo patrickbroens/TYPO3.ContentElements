@@ -3,5 +3,5 @@
 <f:layout name="HeaderContentFooter" />
 
 <f:section name="content">
-	<ce:multimedia file="uploads/media/{data.multimedia}" parameters="{data.bodytext}" />
+	<f:cObject typoscriptObjectPath="media.default" data="{data}" />
 </f:section>
