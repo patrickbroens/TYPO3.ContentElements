@@ -1,0 +1,6 @@
+# ***************************************************************************************
+# Extension configuration variables
+# ***************************************************************************************
+
+  # cat=basic/enable/100; type=boolean; label=LLL:EXT:contentelements/Resources/Private/Language/ExtensionManager.xlf:showMinimumSetOfFields
+showMinimumSetOfFields = 1

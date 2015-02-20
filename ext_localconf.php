@@ -17,7 +17,14 @@ $GLOBALS['TYPO3_CONF_VARS']['FE']['contentRenderingTemplates'] = array(
 	array()
 );
 
-	// Remove obsolete fields
+	// Remove obsolete fields and set some defaults
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-	'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:contentelements/Configuration/TypoScript/PageTSconfig/setup.txt">'
+	'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:contentelements/Configuration/TypoScript/PageTSconfig/default.ts">'
 );
+
+	// Minimum set of fields, recommended for beginners, when showMinimumSetOfFields is set to 1 in Extension Manager
+if ($_EXTCONF['showMinimumSetOfFields']) {
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+		'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:contentelements/Configuration/TypoScript/PageTSconfig/minimum.ts">'
+	);
+}
