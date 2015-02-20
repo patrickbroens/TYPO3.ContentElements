@@ -189,6 +189,10 @@ class ImageGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 			$columns = $this->fileCount;
 		}
 
+		if ($columns === 0) {
+			$columns = 1;
+		}
+
 			// Calculate the rows from the amount of files and the columns
 		$rows = ceil($this->fileCount / $columns);
 
@@ -313,6 +317,9 @@ class ImageGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 			$imageWidth = intval($galleryWidthMinusBorderAndSpacing / $this->columns);
 
 			foreach ($this->fileObjects as $key => $fileObject) {
+				if($imageWidth > $fileObject->getProperty('width')){
+					$imageWidth = $fileObject->getProperty('width');
+				}
 				$imageHeight = floor(
 					$fileObject->getProperty('height') * ($imageWidth / $fileObject->getProperty('width'))
 				);

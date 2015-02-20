@@ -5,7 +5,7 @@ if (!defined('TYPO3_MODE')) {
 
 	// Define TypoScript as content rendering template
 $GLOBALS['TYPO3_CONF_VARS']['FE']['contentRenderingTemplates'] = array(
-	'contentelements/Configuration/TypoScript/'
+	'contentelements/Configuration/TypoScript/Static/'
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
