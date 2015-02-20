@@ -25,7 +25,7 @@ namespace PatrickBroens\Contentelements\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use PatrickBroens\Contentelements\Utilities\FlexForm;
+use PatrickBroens\Contentelements\Utilities\Transform;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
@@ -104,11 +104,11 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	 */
 	public function bulletsAction() {
 		if ($this->data['bullets_type'] != 2) {
-			$this->data['bullets'] = \PatrickBroens\Contentelements\Utilities\Transform::linesToArray(
+			$this->data['bullets'] = Transform::linesToArray(
 				$this->data['bodytext']
 			);
 		} else {
-			$this->data['bullets'] = \PatrickBroens\Contentelements\Utilities\Transform::CsvToArray(
+			$this->data['bullets'] = Transform::CsvToArray(
 				$this->data['bodytext'],
 				'|',
 				'',
@@ -177,9 +177,6 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	 * The table data is transformed to a multi dimensional array, taking the delimiter and enclosure into account,
 	 * before it is passed to the view.
 	 *
-	 * Some data of a table is stored in a FlexForm,
-	 * and is put in the "table" value to be able to read it in a Fluid template.
-	 *
 	 * @return void
 	 */
 	public function tableAction() {
@@ -201,7 +198,7 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			$enclosure = '';
 		}
 
-		$this->data['table']['data'] = \PatrickBroens\Contentelements\Utilities\Transform::CsvToArray(
+		$this->data['table']['data'] = Transform::CsvToArray(
 			$this->data['bodytext'],
 			$delimiter,
 			$enclosure,

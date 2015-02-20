@@ -1,6 +1,8 @@
 <?php
 namespace PatrickBroens\Contentelements\Utilities;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -37,7 +39,7 @@ class Transform {
 	 * @return array
 	 */
 	public function linesToArray($input) {
-		$rows = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(LF, $input);
+		$rows = GeneralUtility::trimExplode(LF, $input);
 
 		return $rows;
 	}
@@ -56,7 +58,7 @@ class Transform {
 		$multiArray = array();
 		$maximumCellCount = 0;
 
-		$rows = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(LF, $input);
+		$rows = GeneralUtility::trimExplode(LF, $input);
 
 		foreach ($rows as $row) {
 			$cells = str_getcsv($row, $delimiter, $enclosure);
