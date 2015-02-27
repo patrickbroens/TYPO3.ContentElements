@@ -23,9 +23,9 @@ $GLOBALS['TYPO3_CONF_VARS']['FE']['contentRenderingTemplates'] = array(
 );
 
 	// Minimum set of fields, recommended for beginners, when showMinimumSetOfFields is set to 1 in Extension Manager
-$extconf = unserialize($_EXTCONF);
-if(is_array($extconf)) {
-	if ($extconf['showMinimumSetOfFields']) {
+$extensionConfiguration = unserialize($_EXTCONF);
+if(is_array($extensionConfiguration)) {
+	if ($extensionConfiguration['showMinimumSetOfFields']) {
 		\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
 			'<INCLUDE_TYPOSCRIPT: source="FILE:EXT:contentelements/Configuration/TypoScript/PageTSconfig/minimum.ts">'
 		);
