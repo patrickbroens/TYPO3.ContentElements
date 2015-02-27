@@ -6,7 +6,6 @@
 
 TCEFORM {
 	tt_content {
-
 			# Remove obsolete fields. These do not work in "Content Elements"
 		image_compression.disabled = 1
 		image_effects.disabled = 1
@@ -20,6 +19,18 @@ TCEFORM {
 		table_border.disabled = 1
 		table_cellspacing.disabled = 1
 		table_cellpadding.disabled = 1
+
+			# Remove CTypes which are rendered by CType "media"
+		CType.removeItems := addToList(swfobject,qtobject,multimedia)
+
+			# Remove unused positioning types in CType "image"
+		imageorient {
+			types {
+				image {
+					removeItems := addToList(8,9,10,17,18,25,26)
+				}
+			}
+		}
 
 			# Remove fields which are not in use by default, more action has to be done to make these work
 		categories.disabled = 1
