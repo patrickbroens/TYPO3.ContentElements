@@ -192,7 +192,7 @@
 		</ce:menu.directory>
 	</f:if>
 
-	<f:if condition="{data.menu_type} == '9'">
+	<f:if condition="{data.menu_type} == 'categorized_pages'">
 		<ce:menu.categories.pages categoryUids="{data.selected_categories}" as="pages" relationField="{data.category_field}">
 			<f:if condition="{pages}">
 				<ul class="ce-menu ce-menu-9">
