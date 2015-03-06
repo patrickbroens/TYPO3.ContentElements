@@ -6,7 +6,6 @@
 <INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/plugin.tx_contentelements.ts">
 <INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/lib.stdContent.ts">
 <INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/lib.userContent.ts">
-<INCLUDE_TYPOSCRIPT: source="FILE: EXT:contentelements/Configuration/TypoScript/Static/Setup/media.ts">
 
 tt_content >
 tt_content = CASE
@@ -45,10 +44,6 @@ tt_content {
 	list < lib.stdContent
 	list {
 		file = {$contentelements.view.templateRootPath}List.html
-	}
-	media < lib.stdContent
-	media {
-		file = {$contentelements.view.templateRootPath}Media.html
 	}
 	menu < lib.userContent
 	menu {
