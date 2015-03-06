@@ -35,6 +35,19 @@ styles.content.imgtext {
 	borderThick = 2
 	# cat=content/cImage/i3; type=int+; label= Image border, padding: Padding left and right to the image, around the border.
 	borderSpace = 0
+
+	# cat=content/cImage/c1; type=int+; label= Click-enlarge Image Width: This specifies the width of the enlarged image when click-enlarge is enabled.
+	linkWrap.width = 800m
+	linkWrap.height = 600m
+	linkWrap.effects =
+	# cat=content/cImage/c2; type=boolean; label= Advanced, New window: If set, every click-enlarged image will open in it's own popup window and not the current popup window (which may have a wrong size for the image to fit in)
+	linkWrap.newWindow = 0
+	# cat=content/cImage/c3; type=boolean; label= Lightbox click-enlarge rendering: Whether images with click-enlarge checked should be rendered lightbox-compliant
+	linkWrap.lightboxEnabled = 0
+	# cat=content/cImage/c4; type=string; label= Lightbox CSS class: Which CSS class to use for lightbox links (only applicable if lightbox rendering is enabled)
+	linkWrap.lightboxCssClass = lightbox
+	# cat=content/cImage/c5; type=string; label= Lightbox rel="" attribute: Which rel="" attribute to use for lightbox links (only applicable if lightbox rendering is enabled)
+	linkWrap.lightboxRelAttribute = lightbox[{field:uid}]
 }
 
 styles.content.media {

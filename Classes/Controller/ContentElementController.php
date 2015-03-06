@@ -298,13 +298,13 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			if ($GLOBALS['TSFE']->register['maxImageWidthInText']) {
 				$this->data['galleryWidth'] = $GLOBALS['TSFE']->register['maxImageWidthInText'];
 			} else {
-				$this->data['galleryWidth'] = $this->settings['maximumImageWidthInText'];
+				$this->data['galleryWidth'] = $this->settings['images']['gallery']['maximumImageWidthInText'];
 			}
 		} else {
 			if ($GLOBALS['TSFE']->register['maxImageWidth']) {
 				$this->data['galleryWidth'] = $GLOBALS['TSFE']->register['maxImageWidth'];
 			} else {
-				$this->data['galleryWidth'] = $this->settings['maximumImageWidth'];
+				$this->data['galleryWidth'] = $this->settings['images']['gallery']['maximumImageWidth'];
 			}
 		}
 	}
