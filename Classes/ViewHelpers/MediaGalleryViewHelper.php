@@ -4,7 +4,7 @@ namespace PatrickBroens\Contentelements\ViewHelpers;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2013 Patrick Broens <patrick@patrickbroens.nl>
+ *  (c) 2015 Patrick Broens <patrick@patrickbroens.nl>
  *
  *  All rights reserved
  *
@@ -26,43 +26,43 @@ namespace PatrickBroens\Contentelements\ViewHelpers;
  ***************************************************************/
 
 /**
- * A view helper which returns an image gallery
+ * A view helper which returns a media gallery
  *
- * The image gallery will be returned as a multidimensional array:
+ * The media gallery will be returned as a multidimensional array:
  *
  * $gallery
  *   [count]
- *     [files] The amount of images in the gallery
+ *     [files] The amount of media in the gallery
  *     [columns] The amount of columns the gallery is using
  *     [rows] The amount of rows the gallery is using
  *   [rows]
  *     [<rowNumber>]
  *       [columns]
  *         [<columnNumber>]
- *           [image] The image object
+ *           [media] The media object
  *           [dimensions]
- *             [width] Calculated width for the image in the gallery
- *             [height] Calculated height for the image in the gallery
+ *             [width] Calculated width for the media in the gallery
+ *             [height] Calculated height for the media in the gallery
  *
  * = Example =
  *
  * <code title="Example">
- * <ce:imageGallery references="{data.images}" width="740" as="gallery" columns="2" columnSpacing="10">
+ * <ce:mediaGallery references="{data.media}" width="740" as="gallery" columns="2" columnSpacing="10">
  *   <f:for each="{gallery.rows}" as="row">
  *     <f:for each="{row.columns}" as="column">
- *       <f:image image="{column.image}" width="{column.dimensions.width}" height="{column.dimensions.height}" />
+ *       <f:image image="{column.media}" width="{column.dimensions.width}" height="{column.dimensions.height}" />
  *     </f:for>
  *   </f:for>
- * </ce:menu.directory>
+ * </ce:mediaGallery>
  * </code>
  *
  * <output>
- * <img src="path/to/image/1" width="365" height="200" />
- * <img src="path/to/image/2" width="365" height="250" />
- * <img src="path/to/image/3" width="365" height="200" />
+ * <img src="path/to/media/1" width="365" height="200" />
+ * <img src="path/to/media/2" width="365" height="250" />
+ * <iframe src="path/to/externalmedia/3" width="365" height="200">...</iframe>
  * </output>
  */
-class ImageGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class MediaGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
 
 	/**
 	 * The file objects
@@ -93,11 +93,11 @@ class ImageGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 	protected $columns = 0;
 
 	/**
-	 * The dimensions of each image
+	 * The dimensions of each media element
 	 *
 	 * @var array
 	 */
-	protected $imageDimensions = array();
+	protected $mediaDimensions = array();
 
 	/**
 	 * The defined width of the gallery
@@ -114,7 +114,7 @@ class ImageGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 	protected $calculatedWidth = 0;
 
 	/**
-	 * TRUE when a border is used for the images in the gallery
+	 * TRUE when a border is used for the media elements in the gallery
 	 *
 	 * @var boolean
 	 */
@@ -129,11 +129,11 @@ class ImageGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 	 * @param integer $columns Amount of columns
 	 * @param integer $columnSpacing Spacing between the columns
 	 * @param integer $rows Amount of rows
-	 * @param integer $imageHeight Predefined height of the images
-	 * @param integer $imageWidth Predefined width of the images
+	 * @param integer $mediaHeight Predefined height of the media element
+	 * @param integer $mediaWidth Predefined width of the media element
 	 * @param boolean $border TRUE when border in use
 	 * @param integer $borderWidth Width of the border
-	 * @param integer $borderPadding Padding between border and image
+	 * @param integer $borderPadding Padding between border and media element
 	 */
 	public function render(
 		$as,
@@ -142,8 +142,8 @@ class ImageGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 		$columns = 1,
 		$columnSpacing = 0,
 		$rows = 0,
-		$imageHeight = 0,
-		$imageWidth = 0,
+		$mediaHeight = 0,
+		$mediaWidth = 0,
 		$border = FALSE,
 		$borderWidth = 1,
 		$borderPadding = 0
@@ -153,10 +153,10 @@ class ImageGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 
 		$this->calculateRowsAndColumns($columns, $rows);
 
-		$this->calculateImageWidthsAndHeights(
+		$this->calculateMediaWidthsAndHeights(
 			$width,
-			$imageHeight,
-			$imageWidth,
+			$mediaHeight,
+			$mediaWidth,
 			$columnSpacing,
 			$border,
 			$borderWidth,
@@ -184,7 +184,7 @@ class ImageGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 			// If no columns defined, set it to 1
 		$columns = (integer) $columnAmount > 1 ? (integer) $columnAmount : 1;
 
-			// When more columns than images, set the columns to the amount of images
+			// When more columns than media elements, set the columns to the amount of media elements
 		if ($columns > $this->fileCount) {
 			$columns = $this->fileCount;
 		}
@@ -217,13 +217,13 @@ class ImageGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 	}
 
 	/**
-	 * Calculate the width/height of the images
+	 * Calculate the width/height of the media elements
 	 *
 	 * Based on the width of the gallery, defined equal width or height by a user, the spacing between columns and
 	 * the use of a border, defined by user, where the border width and padding are taken into account
 	 *
 	 * @param integer $width The width of the gallery
-	 * @param integer $equalImageHeight Predefined height of the images
+	 * @param integer $equalMediaHeight Predefined height of the images
 	 * @param integer $equalImageWidth Predefined width of the images
 	 * @param integer $columnSpacing Spacing between the columns
 	 * @param boolean $border TRUE when border in use
@@ -231,10 +231,10 @@ class ImageGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 	 * @param integer $borderPadding Padding between border and image
 	 * @return void
 	 */
-	protected function calculateImageWidthsAndHeights(
+	protected function calculateMediaWidthsAndHeights(
 		$width,
-		$equalImageHeight,
-		$equalImageWidth,
+		$equalMediaHeight,
+		$equalMediaWidth,
 		$columnSpacing,
 		$border,
 		$borderWidth,
@@ -255,11 +255,11 @@ class ImageGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 		}
 
 			// User entered a predefined height
-		if ($equalImageHeight) {
-			$imageScalingCorrection = 1;
+		if ($equalMediaHeight) {
+			$mediaScalingCorrection = 1;
 			$maximumRowWidth = 0;
 
-				// Calculate the scaling correction when the total of images is wider than the gallery width
+				// Calculate the scaling correction when the total of media elements is wider than the gallery width
 			for ($row = 1; $row <= $this->rows; $row++) {
 				$totalRowWidth = 0;
 				for ($column = 1; $column <= $this->columns; $column++) {
@@ -267,65 +267,65 @@ class ImageGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 					if ($fileKey > $this->fileCount - 1) {
 						break 2;
 					}
-					$currentImageScaling = $equalImageHeight / $this->fileObjects[$fileKey]->getProperty('height');
-					$totalRowWidth += $this->fileObjects[$fileKey]->getProperty('width') * $currentImageScaling;
+					$currentMediaScaling = $equalMediaHeight / $this->fileObjects[$fileKey]->getProperty('height');
+					$totalRowWidth += $this->fileObjects[$fileKey]->getProperty('width') * $currentMediaScaling;
 				}
 				$maximumRowWidth = max($totalRowWidth, $maximumRowWidth);
-				$imagesInRowScaling = $totalRowWidth / $galleryWidthMinusBorderAndSpacing;
-				$imageScalingCorrection = max($imagesInRowScaling, $imageScalingCorrection);
+				$mediaInRowScaling = $totalRowWidth / $galleryWidthMinusBorderAndSpacing;
+				$mediaScalingCorrection = max($mediaInRowScaling, $mediaScalingCorrection);
 			}
 
-				// Set the corrected dimensions for each image
+				// Set the corrected dimensions for each media element
 			foreach ($this->fileObjects as $key => $fileObject) {
-				$imageHeight = floor($equalImageHeight / $imageScalingCorrection);
-				$imageWidth = floor(
-					$fileObject->getProperty('width') * ($imageHeight / $fileObject->getProperty('height'))
+				$mediaHeight = floor($equalMediaHeight / $mediaScalingCorrection);
+				$mediaWidth = floor(
+					$fileObject->getProperty('width') * ($mediaHeight / $fileObject->getProperty('height'))
 				);
-				$this->imageDimensions[$key] = array(
-					'width' => 	$imageWidth,
-					'height' => $imageHeight
+				$this->mediaDimensions[$key] = array(
+					'width' => 	$mediaWidth,
+					'height' => $mediaHeight
 				);
 			}
 
-			$this->calculatedWidth = floor($maximumRowWidth / $imageScalingCorrection) + $galleryWidthMinusBorderAndSpacing;
+			$this->calculatedWidth = floor($maximumRowWidth / $mediaScalingCorrection) + $galleryWidthMinusBorderAndSpacing;
 
 			// User entered a predefined width
-		} elseif ($equalImageWidth) {
-			$imageScalingCorrection = 1;
+		} elseif ($equalMediaWidth) {
+			$mediaScalingCorrection = 1;
 
-				// Calculate the scaling correction when the total of images is wider than the gallery width
-			$totalRowWidth = $this->columns * $equalImageWidth;
-			$imagesInRowScaling = $totalRowWidth / $galleryWidthMinusBorderAndSpacing;
-			$imageScalingCorrection = max($imagesInRowScaling, $imageScalingCorrection);
+				// Calculate the scaling correction when the total of media elements is wider than the gallery width
+			$totalRowWidth = $this->columns * $equalMediaWidth;
+			$mediaInRowScaling = $totalRowWidth / $galleryWidthMinusBorderAndSpacing;
+			$mediaScalingCorrection = max($mediaInRowScaling, $mediaScalingCorrection);
 
-				// Set the corrected dimensions for each image
+				// Set the corrected dimensions for each media element
 			foreach ($this->fileObjects as $key => $fileObject) {
-				$imageWidth = floor($equalImageWidth / $imageScalingCorrection);
-				$imageHeight = floor(
-					$fileObject->getProperty('height') * ($imageWidth / $fileObject->getProperty('width'))
+				$mediaWidth = floor($equalMediaWidth / $mediaScalingCorrection);
+				$mediaHeight = floor(
+					$fileObject->getProperty('height') * ($mediaWidth / $fileObject->getProperty('width'))
 				);
-				$this->imageDimensions[$key] = array(
-					'width' => 	$imageWidth,
-					'height' => $imageHeight
+				$this->mediaDimensions[$key] = array(
+					'width' => 	$mediaWidth,
+					'height' => $mediaHeight
 				);
 			}
 
-			$this->calculatedWidth = floor($totalRowWidth / $imageScalingCorrection) + $galleryWidthMinusBorderAndSpacing;
+			$this->calculatedWidth = floor($totalRowWidth / $mediaScalingCorrection) + $galleryWidthMinusBorderAndSpacing;
 
 			// Automatic setting of width and height
 		} else {
-			$imageWidth = intval($galleryWidthMinusBorderAndSpacing / $this->columns);
+			$mediaWidth = intval($galleryWidthMinusBorderAndSpacing / $this->columns);
 
 			foreach ($this->fileObjects as $key => $fileObject) {
-				if($imageWidth > $fileObject->getProperty('width')){
-					$imageWidth = $fileObject->getProperty('width');
+				if($mediaWidth > $fileObject->getProperty('width')){
+					$mediaWidth = $fileObject->getProperty('width');
 				}
-				$imageHeight = floor(
-					$fileObject->getProperty('height') * ($imageWidth / $fileObject->getProperty('width'))
+				$mediaHeight = floor(
+					$fileObject->getProperty('height') * ($mediaWidth / $fileObject->getProperty('width'))
 				);
-				$this->imageDimensions[$key] = array(
-					'width' => 	$imageWidth,
-					'height' => $imageHeight
+				$this->mediaDimensions[$key] = array(
+					'width' => 	$mediaWidth,
+					'height' => $mediaHeight
 				);
 			}
 
@@ -357,10 +357,10 @@ class ImageGalleryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVi
 				$fileKey = (($row - 1) * $this->columns) + $column - 1;
 
 				$gallery['rows'][$row]['columns'][$column] = array(
-					'image' => $this->fileObjects[$fileKey],
+					'media' => $this->fileObjects[$fileKey],
 					'dimensions' => array(
-						'width' => $this->imageDimensions[$fileKey]['width'],
-						'height' => $this->imageDimensions[$fileKey]['height']
+						'width' => $this->mediaDimensions[$fileKey]['width'],
+						'height' => $this->mediaDimensions[$fileKey]['height']
 					)
 				);
 			}

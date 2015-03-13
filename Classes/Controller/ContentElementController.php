@@ -73,17 +73,14 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			case 'bullets':
 				$this->forward('bullets');
 				break;
-			case 'image':
-				$this->forward('image');
-				break;
 			case 'menu':
 				$this->forward('menu');
 				break;
 			case 'table':
 				$this->forward('table');
 				break;
-			case 'textpic':
-				$this->forward('textpic');
+			case 'textmedia':
+				$this->forward('textmedia');
 				break;
 			case 'uploads':
 				$this->forward('uploads');
@@ -115,30 +112,6 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 				2
 			);
 		}
-
-		$this->view->assign('data', $this->data);
-	}
-
-	/**
-	 * Action for CE "Images"
-	 *
-	 * Files are FAL references, stored as comma separated values in a temporary field "image_fileReferenceUids".
-	 * The files are collected by these references before sending it to the view.
-	 *
-	 * Sets the gallery position as variables, for better usability in Fluid templates.
-	 *
-	 * @return void
-	 */
-	public function imageAction() {
-		$fileObjects = $this->fileCollection->getAllSorted(
-			'',
-			$this->data['image_fileReferenceUids']
-		);
-
-		$this->data['images'] = $fileObjects;
-
-		$this->galleryPosition();
-		$this->galleryWidth();
 
 		$this->view->assign('data', $this->data);
 	}
@@ -209,22 +182,20 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 	}
 
 	/**
-	 * Action for CE "Text & Images"
+	 * Action for CE "Text & Media"
 	 *
-	 * Files are FAL references, stored as comma separated values in a temporary field "image_fileReferenceUids".
+	 * Files are FAL references, the amount mentioned in the field "image".
 	 * The files are collected by these references before sending it to the view.
 	 *
 	 * Sets the gallery position as variables, for better usability in Fluid templates.
 	 *
 	 * @return void
 	 */
-	public function textpicAction() {
-		$fileObjects = $this->fileCollection->getAllSorted(
-			'',
-			$this->data['image_fileReferenceUids']
-		);
+	public function textmediaAction() {
+		$fileRepository = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\FileRepository::class);
+		$fileObjects = $fileRepository->findByRelation('tt_content', 'image', $this->data['uid']);
 
-		$this->data['images'] = $fileObjects;
+		$this->data['media'] = $fileObjects;
 
 		$this->galleryPosition();
 		$this->galleryWidth();
@@ -298,13 +269,13 @@ class ContentElementController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
 			if ($GLOBALS['TSFE']->register['maxImageWidthInText']) {
 				$this->data['galleryWidth'] = $GLOBALS['TSFE']->register['maxImageWidthInText'];
 			} else {
-				$this->data['galleryWidth'] = $this->settings['images']['gallery']['maximumImageWidthInText'];
+				$this->data['galleryWidth'] = $this->settings['media']['gallery']['maximumImageWidthInText'];
 			}
 		} else {
 			if ($GLOBALS['TSFE']->register['maxImageWidth']) {
 				$this->data['galleryWidth'] = $GLOBALS['TSFE']->register['maxImageWidth'];
 			} else {
-				$this->data['galleryWidth'] = $this->settings['images']['gallery']['maximumImageWidth'];
+				$this->data['galleryWidth'] = $this->settings['media']['gallery']['maximumImageWidth'];
 			}
 		}
 	}

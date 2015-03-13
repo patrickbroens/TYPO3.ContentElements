@@ -33,14 +33,6 @@ tt_content {
 	html {
 		file = {$contentelements.view.templateRootPath}Html.html
 	}
-	image < lib.userContent
-	image {
-		switchableControllerActions {
-			ContentElement {
-				1 = image
-			}
-		}
-	}
 	list < lib.stdContent
 	list {
 		file = {$contentelements.view.templateRootPath}List.html
@@ -65,15 +57,11 @@ tt_content {
 			}
 		}
 	}
-	text < lib.stdContent
-	text {
-		file = {$contentelements.view.templateRootPath}Text.html
-	}
-	textpic < lib.userContent
-	textpic {
+	textmedia < lib.userContent
+	textmedia {
 		switchableControllerActions {
 			ContentElement {
-				1 = textpic
+				1 = textmedia
 			}
 		}
 	}

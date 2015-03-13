@@ -9,7 +9,7 @@
 	<div class="ce-textpic ce-{data.galleryPosition.horizontal} ce-{data.galleryPosition.vertical}{f:if(condition: '{data.galleryPosition.noWrap}', then: ' ce-nowrap')}">
 
 		<f:if condition="{data.galleryPosition.vertical} != 'below'">
-			<f:render partial="ImageGallery" arguments="{_all}" />
+			<f:render partial="MediaGallery" arguments="{_all}" />
 		</f:if>
 
 		<div class="ce-bodytext">
@@ -22,7 +22,7 @@
 		</div>
 
 		<f:if condition="{data.galleryPosition.vertical} == 'below'">
-			<f:render partial="ImageGallery" arguments="{_all}" />
+			<f:render partial="MediaGallery" arguments="{_all}" />
 		</f:if>
 
 	</div>

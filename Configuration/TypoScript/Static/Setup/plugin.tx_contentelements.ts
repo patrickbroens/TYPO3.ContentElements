@@ -5,7 +5,7 @@ plugin.tx_contentelements {
 		layoutRootPath = {$contentelements.view.layoutRootPath}
 	}
 	settings {
-		images {
+		media {
 			gallery {
 				columnSpacing = {$styles.content.imgtext.colSpace}
 				maximumImageWidth = {$styles.content.imgtext.maxW}

@@ -37,7 +37,8 @@ $EM_CONF[$_EXTKEY] = array(
 			'typo3' => '6.2.0-7.0.99',
 			'php' => '5.3.0-0.0.0',
 			'cms' => '6.2.0-7.0.99',
-			'fluid' => '6.2.0-7.0.99'
+			'fluid' => '6.2.0-7.0.99',
+			'fal_online_media_connector' => '0.0.1-0.0.99'
 		),
 		'conflicts' => array(
 		),

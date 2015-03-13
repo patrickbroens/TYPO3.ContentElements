@@ -21,7 +21,7 @@ TCEFORM {
 		table_cellpadding.disabled = 1
 
 			# Remove CTypes which are rendered by CType "media"
-		CType.removeItems := addToList(swfobject,qtobject,multimedia)
+		CType.removeItems := addToList(text, textpic, image, swfobject, qtobject, multimedia)
 
 			# Remove unused positioning types in CType "image"
 		imageorient {

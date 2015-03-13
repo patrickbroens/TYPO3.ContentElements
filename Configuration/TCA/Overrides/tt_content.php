@@ -191,29 +191,6 @@ $GLOBALS['TCA']['tt_content']['types']['html']['showitem'] = '
 		categories
 ';
 
-/********************************
- * CE "Images" (tt_content.image)
- ********************************/
-
-// Restructure the form layout (tabs, palettes and fields)
-$GLOBALS['TCA']['tt_content']['types']['image']['showitem'] = '
-		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.general;general,
-		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.header;header,
-	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.images,
-		image,
-		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.imagelinks;imagelinks,
-	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.appearance,
-		layout;LLL:EXT:cms/locallang_ttc.xlf:layout_formlabel,
-		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.image_settings;image_settings,
-		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.imageblock;imageblock,
-		--palette--;LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:palette.appearanceLinks;appearanceLinks,
-	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,
-		hidden;LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:field.default.hidden,
-		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.access;access,
-	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.extended,
-	--div--;LLL:EXT:lang/locallang_tca.xlf:sys_category.tabs.category,
-		categories
-';
 /**************************************
  * CE "Insert Plugin" (tt_content.list)
  **************************************/
@@ -233,29 +210,6 @@ $GLOBALS['TCA']['tt_content']['types']['list']['showitem'] = '
 	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,
 		hidden;LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:field.default.hidden,
 		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.access;access,
-	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.extended,
-	--div--;LLL:EXT:lang/locallang_tca.xlf:sys_category.tabs.category,
-		categories
-';
-
-/*******************************
- * CE "Media" (tt_content.media)
- *******************************/
-
-// Restructure the form layout (tabs, palettes and fields)
-$GLOBALS['TCA']['tt_content']['types']['media']['showitem'] = '
-		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.general;general,
-		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.header;header,
-	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.media,
-		pi_flexform; ;,
-	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.appearance,
-		layout;LLL:EXT:cms/locallang_ttc.xlf:layout_formlabel,
-		--palette--;LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:palette.appearanceLinks;appearanceLinks,
-	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,
-		hidden;LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:field.default.hidden,
-		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.access;access,
-	--div--;LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:tabs.accessibility,
-		bodytext;LLL:EXT:cms/locallang_ttc.xlf:bodytext.ALT.media_formlabel;;richtext:rte_transform[flag=rte_enabled|mode=ts_css],
 	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.extended,
 	--div--;LLL:EXT:lang/locallang_tca.xlf:sys_category.tabs.category,
 		categories
@@ -337,44 +291,59 @@ $GLOBALS['TCA']['tt_content']['types']['table']['showitem'] = '
 		categories
 ';
 
-/*****************************
- * CE "Text" (tt_content.text)
- *****************************/
-
-// Restructure the form layout (tabs, palettes and fields)
-$GLOBALS['TCA']['tt_content']['types']['text']['showitem'] = '
-		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.general;general,
-		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.header;header,
-		bodytext;LLL:EXT:cms/locallang_ttc.xlf:bodytext_formlabel;;richtext:rte_transform[flag=rte_enabled|mode=ts_css],
-		rte_enabled;LLL:EXT:cms/locallang_ttc.xlf:rte_enabled_formlabel,
-	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.appearance,
-		layout;LLL:EXT:cms/locallang_ttc.xlf:layout_formlabel,
-		--palette--;LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:palette.appearanceLinks;appearanceLinks,
-	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,
-		hidden;LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:field.default.hidden,
-		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.access;access,
-	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.extended,
-	--div--;LLL:EXT:lang/locallang_tca.xlf:sys_category.tabs.category,
-		categories
-';
-
 /*****************************************
- * CE "Text & Images" (tt_content.textpic)
+ * CE "Text & Media" (tt_content.textmedia)
  *****************************************/
+// Insert this element in the "Standard" optgroup of CType dropdown
+array_splice(
+	$GLOBALS['TCA']['tt_content']['columns']['CType']['config']['items'],
+	2,
+	0,
+	array(
+		array(
+			'LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:tt_content.textmedia',
+			'textmedia',
+			'i/tt_content_textpic.gif'
+		)
+	)
+);
+
+// Add a new palette for media adjustments
+$GLOBALS['TCA']['tt_content']['palettes']['mediaAdjustments'] = array(
+	'canNotCollapse' => 1,
+	'showitem' => '
+		imagewidth;LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:field.textmedia.imagewidth,
+		imageheight;LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:field.textmedia.imageheight,
+		imageborder;LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:field.textmedia.imageborder
+	'
+);
+
+// Add a new palette for gallery settings
+$GLOBALS['TCA']['tt_content']['palettes']['gallerySettings'] = array(
+	'canNotCollapse' => 1,
+	'showitem' => '
+		imageorient;LLL:EXT:cms/locallang_ttc.xlf:imageorient_formlabel,
+		imagecols;LLL:EXT:cms/locallang_ttc.xlf:imagecols_formlabel
+	'
+);
+
+// Add icon for this type of content element
+$GLOBALS['TCA']['tt_content']['ctrl']['typeicons']['textmedia'] = 'tt_content_textpic.gif';
+$GLOBALS['TCA']['tt_content']['ctrl']['typeicon_classes']['textmedia'] =  'mimetypes-x-content-text-media';
 
 // Restructure the form layout (tabs, palettes and fields)
-$GLOBALS['TCA']['tt_content']['types']['text']['showitem'] = '
+$GLOBALS['TCA']['tt_content']['types']['textmedia']['showitem'] = '
 		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.general;general,
 		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.header;header,
 		bodytext;LLL:EXT:cms/locallang_ttc.xlf:bodytext_formlabel;;richtext:rte_transform[flag=rte_enabled|mode=ts_css],
 		rte_enabled;LLL:EXT:cms/locallang_ttc.xlf:rte_enabled_formlabel,
-	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.images,
+	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.media,
 		image,
 		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.imagelinks;imagelinks,
 	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.appearance,
 		layout;LLL:EXT:cms/locallang_ttc.xlf:layout_formlabel,
-		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.image_settings;image_settings,
-		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.imageblock;imageblock,
+		--palette--;LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:palette.mediaAdjustments;mediaAdjustments,
+		--palette--;LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:palette.gallerySettings;gallerySettings,
 		--palette--;LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:palette.appearanceLinks;appearanceLinks,
 	--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access,
 		hidden;LLL:EXT:contentelements/Resources/Private/Language/TCA.xlf:field.default.hidden,

@@ -3,11 +3,29 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2015-02-27T10:06:32Z" product-name="contentelements">
 		<header/>
 		<body>
+			<trans-unit id="tt_content.textmedia" xml:space="preserve">
+				<source>Text &amp; Media</source>
+			</trans-unit>
 			<trans-unit id="field.default.hidden" xml:space="preserve">
 				<source>Visibility of content element</source>
 			</trans-unit>
+			<trans-unit id="field.textmedia.imagewidth" xml:space="preserve">
+				<source>Width of each element (px)</source>
+			</trans-unit>
+			<trans-unit id="field.textmedia.imageheight" xml:space="preserve">
+				<source>Height of each element (px)</source>
+			</trans-unit>
+			<trans-unit id="field.textmedia.imageborder" xml:space="preserve">
+				<source>Border around each element</source>
+			</trans-unit>
 			<trans-unit id="palette.appearanceLinks" xml:space="preserve">
 				<source>Links</source>
+			</trans-unit>
+			<trans-unit id="palette.gallerySettings" xml:space="preserve">
+				<source>Gallery Settings</source>
+			</trans-unit>
+			<trans-unit id="palette.mediaAdjustments" xml:space="preserve">
+				<source>Media Adjustments</source>
 			</trans-unit>
 			<trans-unit id="tabs.accessibility" xml:space="preserve">
 				<source>Accessibility</source>
