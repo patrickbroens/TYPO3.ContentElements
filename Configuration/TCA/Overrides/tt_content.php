@@ -365,7 +365,7 @@ $GLOBALS['TCA']['tt_content']['types']['textmedia']['showitem'] = '
 );
 
 // Restructure the form layout (tabs, palettes and fields)
-$GLOBALS['TCA']['tt_content']['types']['text']['showitem'] = '
+$GLOBALS['TCA']['tt_content']['types']['uploads']['showitem'] = '
 		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.general;general,
 		--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.header;header,
 		--palette--;LLL:EXT:cms/locallang_ttc.xlf:media;uploads,
