@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-02-07T20:22:32Z" product-name="contentelements">
+		<header/>
+		<body>
+			<trans-unit id="common_textMedia_title" xml:space="preserve">
+				<source>Text &amp; Media</source>
+			</trans-unit>
+			<trans-unit id="common_textMedia_description" xml:space="preserve">
+				<source>Any number of media wrapped right around a regular text element.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
